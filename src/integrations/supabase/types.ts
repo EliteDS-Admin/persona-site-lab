@@ -14,7 +14,39 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      site_projects: {
+        Row: {
+          id: string;
+          slug: string;
+          site_type: string | null;
+          deep_answers: string | null;
+          inspirations: Json | null;
+          structured_profile: Json | null;
+          language: string | null;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          slug: string;
+          site_type?: string | null;
+          deep_answers?: string | null;
+          inspirations?: Json | null;
+          structured_profile?: Json | null;
+          language?: string | null;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          slug?: string;
+          site_type?: string | null;
+          deep_answers?: string | null;
+          inspirations?: Json | null;
+          structured_profile?: Json | null;
+          language?: string | null;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
     }
     Views: {
       [_ in never]: never

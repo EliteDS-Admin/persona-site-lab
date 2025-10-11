@@ -31,17 +31,17 @@ export interface StructuredProfile {
 
 interface SiteFactoryContextType {
   currentStep: number;
-  setCurrentStep: (step: number) => void;
+  setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
   siteType: SiteType;
-  setSiteType: (type: SiteType) => void;
+  setSiteType: React.Dispatch<React.SetStateAction<SiteType>>;
   deepAnswers: string;
-  setDeepAnswers: (answers: string) => void;
+  setDeepAnswers: React.Dispatch<React.SetStateAction<string>>;
   selectedInspirations: Inspiration[];
-  setSelectedInspirations: (inspirations: Inspiration[]) => void;
+  setSelectedInspirations: React.Dispatch<React.SetStateAction<Inspiration[]>>;
   structuredProfile: StructuredProfile | null;
-  setStructuredProfile: (profile: StructuredProfile | null) => void;
+  setStructuredProfile: React.Dispatch<React.SetStateAction<StructuredProfile | null>>;
   generatedSlug: string | null;
-  setGeneratedSlug: (slug: string | null) => void;
+  setGeneratedSlug: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const SiteFactoryContext = createContext<SiteFactoryContextType | undefined>(undefined);
