@@ -35,6 +35,12 @@ const resources = {
       copied: 'Lien copié !',
       minChars: 'Minimum 100 caractères requis',
       selectMax2: 'Sélectionnez 2 sites maximum',
+      errorLoading: 'Erreur lors du chargement',
+      errorGenerating: 'Erreur lors de la génération',
+      generatingDesc: 'Création de votre site personnalisé...',
+      sitePreview: 'Aperçu du site généré',
+      viewSite: 'Voir le site',
+      finalizeTitle: 'Finalisez votre site professionnel',
     }
   },
   en: {
@@ -70,6 +76,12 @@ const resources = {
       copied: 'Link copied!',
       minChars: 'Minimum 100 characters required',
       selectMax2: 'Select maximum 2 sites',
+      errorLoading: 'Error loading',
+      errorGenerating: 'Error generating',
+      generatingDesc: 'Creating your personalized site...',
+      sitePreview: 'Generated site preview',
+      viewSite: 'View site',
+      finalizeTitle: 'Finalize your professional site',
     }
   }
 };

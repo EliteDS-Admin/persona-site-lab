@@ -5,10 +5,11 @@ import { useSiteFactory, type Inspiration } from '@/contexts/SiteFactoryContext'
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, ArrowRight, Loader2, Check } from 'lucide-react';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 export const StepInspirations = () => {
-  const { t } = useTranslation();
-  const { deepAnswers, selectedInspirations, setSelectedInspirations, setCurrentStep } = useSiteFactory();
+  const { t, i18n } = useTranslation();
+  const { deepAnswers, siteType, selectedInspirations, setSelectedInspirations, setCurrentStep } = useSiteFactory();
   const [inspirations, setInspirations] = useState<Inspiration[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -19,53 +20,32 @@ export const StepInspirations = () => {
   const fetchInspirations = async () => {
     setLoading(true);
     
-    // Mock inspirations for now - will be replaced with real API call
-    setTimeout(() => {
-      const mockInspirations: Inspiration[] = [
-        {
-          id: '1',
-          title: 'Minimalist Portfolio',
-          url: 'https://example.com',
-          image: 'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?w=400&h=300&fit=crop',
-          domain: 'example.com',
-          justification: 'Clean design with strong typography',
-        },
-        {
-          id: '2',
-          title: 'Creative Agency',
-          url: 'https://example2.com',
-          image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=400&h=300&fit=crop',
-          domain: 'example2.com',
-          justification: 'Bold colors and engaging animations',
-        },
-        {
-          id: '3',
-          title: 'Modern Business',
-          url: 'https://example3.com',
-          image: 'https://images.unsplash.com/photo-1553877522-43269d4ea984?w=400&h=300&fit=crop',
-          domain: 'example3.com',
-          justification: 'Professional layout with clear CTAs',
-        },
-        {
-          id: '4',
-          title: 'Tech Startup',
-          url: 'https://example4.com',
-          image: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=400&h=300&fit=crop',
-          domain: 'example4.com',
-          justification: 'Innovative design with great UX',
-        },
-        {
-          id: '5',
-          title: 'Personal Brand',
-          url: 'https://example5.com',
-          image: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=400&h=300&fit=crop',
-          domain: 'example5.com',
-          justification: 'Authentic storytelling approach',
-        },
-      ];
-      setInspirations(mockInspirations);
+    try {
+      const { data, error } = await supabase.functions.invoke('search-inspirations', {
+        body: {
+          deepAnswers,
+          siteType: siteType,
+          language: i18n.language
+        }
+      });
+
+      if (error) {
+        console.error('Error fetching inspirations:', error);
+        toast.error(t('errorLoading'));
+        return;
+      }
+
+      if (data?.inspirations) {
+        setInspirations(data.inspirations);
+      } else {
+        toast.error(t('errorLoading'));
+      }
+    } catch (error) {
+      console.error('Failed to fetch inspirations:', error);
+      toast.error(t('errorLoading'));
+    } finally {
       setLoading(false);
-    }, 1500);
+    }
   };
 
   const toggleSelection = (inspiration: Inspiration) => {

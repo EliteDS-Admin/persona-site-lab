@@ -5,10 +5,11 @@ import { useSiteFactory } from '@/contexts/SiteFactoryContext';
 import { Button } from '@/components/ui/button';
 import { Loader2, ExternalLink, Share2, MessageCircle, Check } from 'lucide-react';
 import { toast } from 'sonner';
+import { supabase } from '@/integrations/supabase/client';
 
 export const StepGeneration = () => {
-  const { t } = useTranslation();
-  const { deepAnswers, selectedInspirations, generatedSlug, setGeneratedSlug } = useSiteFactory();
+  const { t, i18n } = useTranslation();
+  const { deepAnswers, siteType, selectedInspirations, structuredProfile, setStructuredProfile, generatedSlug, setGeneratedSlug } = useSiteFactory();
   const [generating, setGenerating] = useState(true);
   const [copied, setCopied] = useState(false);
 
@@ -19,13 +20,38 @@ export const StepGeneration = () => {
   const generateSite = async () => {
     setGenerating(true);
     
-    // Simulate generation - will be replaced with real API call
-    setTimeout(() => {
-      const slug = `site-${Date.now()}`;
-      setGeneratedSlug(slug);
+    try {
+      // Structure the profile with AI
+      const { data, error } = await supabase.functions.invoke('structure-profile', {
+        body: {
+          deepAnswers,
+          siteType,
+          selectedInspirations,
+          language: i18n.language
+        }
+      });
+
+      if (error) {
+        console.error('Error structuring profile:', error);
+        toast.error(t('errorGenerating'));
+        setGenerating(false);
+        return;
+      }
+
+      if (data?.structuredProfile) {
+        setStructuredProfile(data.structuredProfile);
+        const slug = `site-${Date.now()}`;
+        setGeneratedSlug(slug);
+        toast.success(t('previewReady'));
+      } else {
+        toast.error(t('errorGenerating'));
+      }
+    } catch (error) {
+      console.error('Failed to generate site:', error);
+      toast.error(t('errorGenerating'));
+    } finally {
       setGenerating(false);
-      toast.success(t('previewReady'));
-    }, 3000);
+    }
   };
 
   const shareUrl = generatedSlug ? `${window.location.origin}/preview/${generatedSlug}` : '';
@@ -40,10 +66,10 @@ export const StepGeneration = () => {
   };
 
   const handleWhatsApp = () => {
-    const message = encodeURIComponent(
-      `Bonjour, je souhaite finaliser mon site généré sur Site-Factory : ${shareUrl}`
-    );
-    window.open(`https://wa.me/?text=${message}`, '_blank');
+    const message = i18n.language === 'fr'
+      ? `Bonjour, je souhaite finaliser mon site généré sur Site-Factory : ${shareUrl}`
+      : `Hello, I would like to finalize my website generated on Site-Factory: ${shareUrl}`;
+    window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   if (generating) {
@@ -51,7 +77,7 @@ export const StepGeneration = () => {
       <div className="flex flex-col items-center justify-center py-20">
         <Loader2 className="w-16 h-16 animate-spin text-primary mb-6" />
         <h3 className="text-xl font-bold mb-2">{t('generating')}</h3>
-        <p className="text-muted-foreground">Création de votre site personnalisé...</p>
+        <p className="text-muted-foreground">{t('generatingDesc')}</p>
       </div>
     );
   }
@@ -74,7 +100,7 @@ export const StepGeneration = () => {
 
         <div className="bg-card border-2 border-border rounded-xl p-8 mb-8">
           <div className="aspect-video bg-muted rounded-lg mb-6 flex items-center justify-center">
-            <p className="text-muted-foreground">Aperçu du site généré</p>
+            <p className="text-muted-foreground">{t('sitePreview')}</p>
           </div>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -84,7 +110,7 @@ export const StepGeneration = () => {
               onClick={() => window.open(shareUrl, '_blank')}
             >
               <ExternalLink className="w-4 h-4" />
-              Voir le site
+              {t('viewSite')}
             </Button>
             <Button
               variant="outline"
@@ -98,7 +124,7 @@ export const StepGeneration = () => {
         </div>
 
         <div className="bg-gradient-to-br from-primary/20 to-accent/20 border-2 border-primary rounded-xl p-8">
-          <h3 className="text-xl font-bold mb-2">Finalisez votre site professionnel</h3>
+          <h3 className="text-xl font-bold mb-2">{t('finalizeTitle')}</h3>
           <p className="text-2xl font-bold text-primary mb-4">{t('price')}</p>
           <p className="text-sm text-muted-foreground mb-6">{t('priceDesc')}</p>
           

@@ -64,6 +64,8 @@ export const SiteFactoryProvider: React.FC<{ children: React.ReactNode }> = ({ c
         setDeepAnswers(data.deepAnswers || '');
         setSelectedInspirations(data.selectedInspirations || []);
         setCurrentStep(data.currentStep || 1);
+        setStructuredProfile(data.structuredProfile || null);
+        setGeneratedSlug(data.generatedSlug || null);
       } catch (e) {
         console.error('Failed to load saved data', e);
       }
@@ -76,9 +78,11 @@ export const SiteFactoryProvider: React.FC<{ children: React.ReactNode }> = ({ c
       siteType,
       deepAnswers,
       selectedInspirations,
+      structuredProfile,
+      generatedSlug,
     };
     localStorage.setItem('siteFactory', JSON.stringify(data));
-  }, [currentStep, siteType, deepAnswers, selectedInspirations]);
+  }, [currentStep, siteType, deepAnswers, selectedInspirations, structuredProfile, generatedSlug]);
 
   return (
     <SiteFactoryContext.Provider

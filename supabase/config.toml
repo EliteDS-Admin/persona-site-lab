@@ -1,0 +1,7 @@
+project_id = "uhhssfgpzorqxcbckrgl"
+
+[functions.search-inspirations]
+verify_jwt = false
+
+[functions.structure-profile]
+verify_jwt = false
