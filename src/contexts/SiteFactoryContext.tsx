@@ -31,17 +31,19 @@ export interface StructuredProfile {
 
 interface SiteFactoryContextType {
   currentStep: number;
-  setCurrentStep: (step: number) => void;
+  setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
   siteType: SiteType;
-  setSiteType: (type: SiteType) => void;
+  setSiteType: React.Dispatch<React.SetStateAction<SiteType>>;
   deepAnswers: string;
-  setDeepAnswers: (answers: string) => void;
+  setDeepAnswers: React.Dispatch<React.SetStateAction<string>>;
   selectedInspirations: Inspiration[];
-  setSelectedInspirations: (inspirations: Inspiration[]) => void;
+  setSelectedInspirations: React.Dispatch<React.SetStateAction<Inspiration[]>>;
   structuredProfile: StructuredProfile | null;
-  setStructuredProfile: (profile: StructuredProfile | null) => void;
+  setStructuredProfile: React.Dispatch<React.SetStateAction<StructuredProfile | null>>;
   generatedSlug: string | null;
-  setGeneratedSlug: (slug: string | null) => void;
+  setGeneratedSlug: React.Dispatch<React.SetStateAction<string | null>>;
+  generatedSiteHtml: string | null;
+  setGeneratedSiteHtml: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 const SiteFactoryContext = createContext<SiteFactoryContextType | undefined>(undefined);
@@ -53,6 +55,7 @@ export const SiteFactoryProvider: React.FC<{ children: React.ReactNode }> = ({ c
   const [selectedInspirations, setSelectedInspirations] = useState<Inspiration[]>([]);
   const [structuredProfile, setStructuredProfile] = useState<StructuredProfile | null>(null);
   const [generatedSlug, setGeneratedSlug] = useState<string | null>(null);
+  const [generatedSiteHtml, setGeneratedSiteHtml] = useState<string | null>(null);
 
   // Auto-save to localStorage
   useEffect(() => {
@@ -66,6 +69,7 @@ export const SiteFactoryProvider: React.FC<{ children: React.ReactNode }> = ({ c
         setCurrentStep(data.currentStep || 1);
         setStructuredProfile(data.structuredProfile || null);
         setGeneratedSlug(data.generatedSlug || null);
+        setGeneratedSiteHtml(data.generatedSiteHtml || null);
       } catch (e) {
         console.error('Failed to load saved data', e);
       }
@@ -80,9 +84,10 @@ export const SiteFactoryProvider: React.FC<{ children: React.ReactNode }> = ({ c
       selectedInspirations,
       structuredProfile,
       generatedSlug,
+      generatedSiteHtml,
     };
     localStorage.setItem('siteFactory', JSON.stringify(data));
-  }, [currentStep, siteType, deepAnswers, selectedInspirations, structuredProfile, generatedSlug]);
+  }, [currentStep, siteType, deepAnswers, selectedInspirations, structuredProfile, generatedSlug, generatedSiteHtml]);
 
   return (
     <SiteFactoryContext.Provider
@@ -99,6 +104,8 @@ export const SiteFactoryProvider: React.FC<{ children: React.ReactNode }> = ({ c
         setStructuredProfile,
         generatedSlug,
         setGeneratedSlug,
+        generatedSiteHtml,
+        setGeneratedSiteHtml,
       }}
     >
       {children}
