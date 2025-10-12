@@ -3,16 +3,18 @@ import { motion } from 'framer-motion';
 import { ExternalLink, MessageCircle, Share2, Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { StructuredProfile, Inspiration } from '@/contexts/SiteFactoryContext';
 import { supabase } from '@/integrations/supabase/client';
 import { SketchAccent } from '@/components/SketchAccent';
+import { sanitizeHtml } from '@/utils/sanitizeHtml';
 
 interface SavedProject {
   structured_profile: StructuredProfile | null;
   inspirations: Inspiration[] | null;
   site_type: string | null;
   deep_answers: string | null;
+  site_code: string | null;
 }
 
 const Preview = () => {
@@ -21,6 +23,7 @@ const Preview = () => {
   const [profile, setProfile] = useState<StructuredProfile | null>(null);
   const [inspirations, setInspirations] = useState<Inspiration[]>([]);
   const [loading, setLoading] = useState(true);
+  const [siteHtml, setSiteHtml] = useState<string | null>(null);
 
   useEffect(() => {
     document.documentElement.classList.add('dark');
@@ -40,7 +43,7 @@ const Preview = () => {
       try {
         const { data, error } = await supabase
           .from('site_projects')
-          .select('structured_profile, inspirations, site_type, deep_answers')
+          .select('structured_profile, inspirations, site_type, deep_answers, site_code')
           .eq('slug', slug)
           .maybeSingle();
 
@@ -54,6 +57,9 @@ const Preview = () => {
         }
         if (project?.inspirations) {
           setInspirations(project.inspirations);
+        }
+        if (project?.site_code) {
+          setSiteHtml(project.site_code);
         }
       } catch (error) {
         console.error('Failed to load preview', error);
@@ -76,6 +82,8 @@ const Preview = () => {
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
   };
+
+  const sanitizedHtml = useMemo(() => (siteHtml ? sanitizeHtml(siteHtml) : null), [siteHtml]);
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-background text-foreground">
@@ -108,6 +116,15 @@ const Preview = () => {
             </div>
           ) : profile ? (
             <div className="space-y-10">
+              {sanitizedHtml && (
+                <section className="overflow-hidden rounded-3xl border border-border/60 bg-background/80 shadow-[0_30px_100px_rgba(221,31,20,0.2)]">
+                  <div className="border-b border-border/60 bg-primary/10 px-8 py-6">
+                    <h2 className="text-sm font-semibold uppercase tracking-[0.3em] text-primary">{t('aiDraftPreview')}</h2>
+                    <p className="mt-2 text-xs text-muted-foreground">{t('aiDraftPreviewSubtitle')}</p>
+                  </div>
+                  <div className="generated-site-output text-left text-base" dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />
+                </section>
+              )}
               <section className="relative overflow-hidden rounded-3xl border border-border/60 bg-background/80 p-10 text-center shadow-[0_25px_90px_rgba(221,31,20,0.25)]">
                 <SketchAccent className="pointer-events-none absolute -right-20 -top-14 h-48 w-48 text-primary/15" intensity="bold" />
                 <div className="relative z-10 space-y-6">
@@ -116,6 +133,15 @@ const Preview = () => {
                   <p className="mx-auto max-w-2xl text-base leading-relaxed text-muted-foreground">
                     {profile.description}
                   </p>
+                  <div className="flex flex-wrap justify-center gap-3">
+                    <Button
+                      className="gap-2 bg-primary text-xs uppercase tracking-[0.3em] hover:bg-primary/90"
+                      onClick={() => slug && window.open(`${window.location.origin}/site/${slug}`, '_blank')}
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                      {t('viewSite')}
+                    </Button>
+                  </div>
                 </div>
               </section>
 

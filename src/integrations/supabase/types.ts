@@ -24,6 +24,7 @@ export type Database = {
           structured_profile: Json | null;
           language: string | null;
           created_at: string;
+          site_code: string | null;
         };
         Insert: {
           id?: string;
@@ -34,6 +35,7 @@ export type Database = {
           structured_profile?: Json | null;
           language?: string | null;
           created_at?: string;
+          site_code?: string | null;
         };
         Update: {
           id?: string;
@@ -44,6 +46,7 @@ export type Database = {
           structured_profile?: Json | null;
           language?: string | null;
           created_at?: string;
+          site_code?: string | null;
         };
         Relationships: [];
       };

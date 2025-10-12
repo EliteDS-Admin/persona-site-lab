@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { useTranslation } from 'react-i18next';
 import { useSiteFactory } from '@/contexts/SiteFactoryContext';
 import { Button } from '@/components/ui/button';
-import { Loader2, ExternalLink, Share2, MessageCircle, Check } from 'lucide-react';
+import { Loader2, ExternalLink, Share2, MessageCircle, Check, RefreshCw } from 'lucide-react';
 import { toast } from 'sonner';
 import { supabase } from '@/integrations/supabase/client';
 import { Badge } from '@/components/ui/badge';
@@ -19,17 +19,26 @@ export const StepGeneration = () => {
     setStructuredProfile,
     generatedSlug,
     setGeneratedSlug,
+    setGeneratedSiteHtml,
+    setCurrentStep,
+    setSiteType,
+    setDeepAnswers,
+    setSelectedInspirations,
   } = useSiteFactory();
   const [generating, setGenerating] = useState(true);
   const [copied, setCopied] = useState(false);
   const [persisting, setPersisting] = useState(false);
+  const [htmlReady, setHtmlReady] = useState(false);
 
   useEffect(() => {
     void generateSite();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const generateSite = async () => {
     setGenerating(true);
+    setHtmlReady(false);
+    setGeneratedSiteHtml(null);
 
     try {
       const { data, error } = await supabase.functions.invoke('structure-profile', {
@@ -52,8 +61,10 @@ export const StepGeneration = () => {
         setStructuredProfile(data.structuredProfile);
         const slug = generatedSlug ?? `site-${Date.now()}`;
         setGeneratedSlug(slug);
-        await persistProject(slug, data.structuredProfile);
-        toast.success(t('previewReady'));
+        const success = await generateHtmlAndPersist(slug, data.structuredProfile);
+        if (success) {
+          toast.success(t('previewReady'));
+        }
       } else {
         toast.error(t('errorGenerating'));
       }
@@ -65,7 +76,44 @@ export const StepGeneration = () => {
     }
   };
 
-  const persistProject = async (slug: string, structured: typeof structuredProfile) => {
+  const generateHtmlAndPersist = async (slug: string, structured: typeof structuredProfile) => {
+    if (!structured) {
+      return false;
+    }
+
+    try {
+      const { data: htmlData, error: htmlError } = await supabase.functions.invoke('generate-site-code', {
+        body: {
+          structuredProfile: structured,
+          deepAnswers,
+          selectedInspirations,
+          language: i18n.language,
+        },
+      });
+
+      if (htmlError) {
+        console.error('Error generating site HTML:', htmlError);
+        toast.error(t('errorGeneratingHtml'));
+        return false;
+      }
+
+      if (htmlData?.html) {
+        setGeneratedSiteHtml(htmlData.html);
+        setHtmlReady(true);
+        await persistProject(slug, structured, htmlData.html);
+        return true;
+      } else {
+        toast.error(t('errorGeneratingHtml'));
+        return false;
+      }
+    } catch (error) {
+      console.error('Failed to generate site HTML:', error);
+      toast.error(t('errorGeneratingHtml'));
+      return false;
+    }
+  };
+
+  const persistProject = async (slug: string, structured: typeof structuredProfile, siteHtml: string | null) => {
     if (!structured) {
       return;
     }
@@ -79,6 +127,7 @@ export const StepGeneration = () => {
         inspirations: selectedInspirations,
         structured_profile: structured,
         language: i18n.language,
+        site_code: siteHtml,
       });
 
       if (error) {
@@ -93,14 +142,25 @@ export const StepGeneration = () => {
     }
   };
 
-  const shareUrl = useMemo(
-    () => (generatedSlug ? `${window.location.origin}/preview/${generatedSlug}` : ''),
-    [generatedSlug],
-  );
+  const siteUrl = useMemo(() => {
+    if (!generatedSlug) {
+      return '';
+    }
+    const origin = typeof window !== 'undefined' ? window.location.origin : '';
+    return origin ? `${origin}/site/${generatedSlug}` : '';
+  }, [generatedSlug]);
+
+  const previewUrl = useMemo(() => {
+    if (!generatedSlug) {
+      return '';
+    }
+    const origin = typeof window !== 'undefined' ? window.location.origin : '';
+    return origin ? `${origin}/preview/${generatedSlug}` : '';
+  }, [generatedSlug]);
 
   const handleCopyLink = () => {
-    if (shareUrl) {
-      navigator.clipboard.writeText(shareUrl);
+    if (siteUrl) {
+      navigator.clipboard.writeText(siteUrl);
       setCopied(true);
       toast.success(t('copied'));
       setTimeout(() => setCopied(false), 2000);
@@ -110,9 +170,22 @@ export const StepGeneration = () => {
   const handleWhatsApp = () => {
     const message =
       i18n.language === 'fr'
-        ? `Bonjour, je souhaite finaliser mon site généré sur Site-Factory : ${shareUrl}`
-        : `Hello, I would like to finalize my website generated on Site-Factory: ${shareUrl}`;
+        ? `Bonjour, je souhaite finaliser mon site généré sur Site-Factory : ${siteUrl}`
+        : `Hello, I would like to finalize my website generated on Site-Factory: ${siteUrl}`;
     window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+  };
+
+  const handleRestart = () => {
+    setSiteType(null);
+    setDeepAnswers('');
+    setSelectedInspirations([]);
+    setStructuredProfile(null);
+    setGeneratedSlug(null);
+    setGeneratedSiteHtml(null);
+    setCurrentStep(1);
+    localStorage.removeItem('siteFactory');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    toast.success(t('flowRestarted'));
   };
 
   if (generating) {
@@ -146,12 +219,24 @@ export const StepGeneration = () => {
           </h2>
           <p className="mt-3 text-sm text-muted-foreground sm:text-base">{t('generationSubtitle')}</p>
 
-          {persisting && (
-            <Badge variant="outline" className="mt-4 inline-flex items-center gap-2 border-primary/60 text-primary">
-              <Loader2 className="h-3 w-3 animate-spin" />
-              {t('persisting')}
-            </Badge>
-          )}
+              {persisting && (
+                <Badge variant="outline" className="mt-4 inline-flex items-center gap-2 border-primary/60 text-primary">
+                  <Loader2 className="h-3 w-3 animate-spin" />
+                  {t('persisting')}
+                </Badge>
+              )}
+              {!htmlReady && (
+                <Badge variant="secondary" className="mt-4 inline-flex items-center gap-2 border-dashed border-primary/40 bg-primary/10 text-primary">
+                  <Loader2 className="h-3 w-3 animate-spin" />
+                  {t('htmlBuilding')}
+                </Badge>
+              )}
+              {htmlReady && (
+                <Badge variant="secondary" className="mt-4 inline-flex items-center gap-2 border-primary/40 bg-primary/10 text-primary">
+                  <Check className="h-3 w-3" />
+                  {t('htmlReady')}
+                </Badge>
+              )}
 
           <div className="mt-10 grid gap-8 text-left lg:grid-cols-[2fr_1fr]">
             <div className="space-y-6 rounded-2xl border border-border/60 bg-background/70 p-6">
@@ -198,10 +283,19 @@ export const StepGeneration = () => {
                   <Button
                     variant="outline"
                     className="gap-2 border-border/70 text-xs uppercase tracking-[0.3em]"
-                    onClick={() => window.open(shareUrl, '_blank')}
+                    onClick={() => siteUrl && window.open(siteUrl, '_blank')}
                   >
                     <ExternalLink className="h-4 w-4" />
                     {t('viewSite')}
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="gap-2 border-border/70 text-xs uppercase tracking-[0.3em]"
+                    onClick={() => previewUrl && window.open(previewUrl, '_blank')}
+                    disabled={!previewUrl}
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    {t('previewLink')}
                   </Button>
                   <Button
                     variant="outline"
@@ -210,6 +304,14 @@ export const StepGeneration = () => {
                   >
                     {copied ? <Check className="h-4 w-4" /> : <Share2 className="h-4 w-4" />}
                     {copied ? t('copied') : t('shareLink')}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    className="gap-2 text-xs uppercase tracking-[0.3em] text-muted-foreground hover:text-foreground"
+                    onClick={handleRestart}
+                  >
+                    <RefreshCw className="h-4 w-4" />
+                    {t('createNewSite')}
                   </Button>
                 </div>
               </div>

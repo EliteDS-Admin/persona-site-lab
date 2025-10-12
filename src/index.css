@@ -66,12 +66,23 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground;
-    background-image:
-      radial-gradient(circle at 5% 10%, hsl(3 83% 35% / 0.18), transparent 55%),
-      radial-gradient(circle at 95% 5%, hsl(357 72% 26% / 0.18), transparent 45%),
-      linear-gradient(135deg, hsl(150 14% 3%), hsl(210 16% 6%));
-    background-attachment: fixed;
-  }
+body {
+  @apply bg-background text-foreground;
+  background-image:
+    radial-gradient(circle at 5% 10%, hsl(3 83% 35% / 0.18), transparent 55%),
+    radial-gradient(circle at 95% 5%, hsl(357 72% 26% / 0.18), transparent 45%),
+    linear-gradient(135deg, hsl(150 14% 3%), hsl(210 16% 6%));
+  background-attachment: fixed;
+}
+}
+
+.generated-site-output {
+  font-family: var(--font-sans);
+  color: hsl(0 0% 96%);
+  background-color: hsl(150 14% 8% / 0.6);
+  padding: 3rem;
+}
+
+.generated-site-output * {
+  box-sizing: border-box;
 }
