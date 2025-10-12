@@ -28,10 +28,12 @@ export const StepGeneration = () => {
   const [generating, setGenerating] = useState(true);
   const [copied, setCopied] = useState(false);
   const [persisting, setPersisting] = useState(false);
+  const [persistError, setPersistError] = useState(false);
   const [htmlReady, setHtmlReady] = useState(false);
   const [archiveSaving, setArchiveSaving] = useState(false);
   const [archiveUrl, setArchiveUrl] = useState<string | null>(null);
   const [archiveError, setArchiveError] = useState(false);
+  const [archiveSkipped, setArchiveSkipped] = useState(false);
   const [edgeDeploying, setEdgeDeploying] = useState(false);
   const [edgeDeploySkipped, setEdgeDeploySkipped] = useState(false);
   const [edgeDeployError, setEdgeDeployError] = useState(false);
@@ -47,8 +49,10 @@ export const StepGeneration = () => {
     setGeneratedSiteHtml(null);
     setArchiveUrl(null);
     setArchiveError(false);
+    setArchiveSkipped(false);
     setEdgeDeploySkipped(false);
     setEdgeDeployError(false);
+    setPersistError(false);
 
     try {
       const { data, error } = await supabase.functions.invoke('structure-profile', {
@@ -109,17 +113,25 @@ export const StepGeneration = () => {
 
       if (htmlData?.html) {
         setGeneratedSiteHtml(htmlData.html);
+        let overallSuccess = true;
+
         const persisted = await persistProject(slug, structured, htmlData.html);
         if (!persisted) {
-          return false;
+          overallSuccess = false;
         }
+
         const archived = await archiveSiteCode(slug, htmlData.html);
         if (!archived) {
-          return false;
+          overallSuccess = false;
         }
-        await deployEdgeOne(slug, htmlData.html);
+
+        const deployed = await deployEdgeOne(slug, htmlData.html);
+        if (!deployed) {
+          overallSuccess = false;
+        }
+
         setHtmlReady(true);
-        return true;
+        return overallSuccess;
       } else {
         toast.error(t('errorGeneratingHtml'));
         return false;
@@ -137,6 +149,7 @@ export const StepGeneration = () => {
     }
 
     setPersisting(true);
+    setPersistError(false);
     try {
       const { error } = await supabase.from('site_projects').upsert({
         slug,
@@ -151,12 +164,14 @@ export const StepGeneration = () => {
       if (error) {
         console.error('Error saving project:', error);
         toast.error(t('persistError'));
+        setPersistError(true);
         return false;
       }
       return true;
     } catch (error) {
       console.error('Failed to persist project:', error);
       toast.error(t('persistError'));
+      setPersistError(true);
       return false;
     } finally {
       setPersisting(false);
@@ -166,6 +181,7 @@ export const StepGeneration = () => {
   const archiveSiteCode = async (slug: string, siteHtml: string) => {
     setArchiveSaving(true);
     setArchiveError(false);
+    setArchiveSkipped(false);
     try {
       const { data, error } = await supabase.functions.invoke('archive-site-code', {
         body: {
@@ -179,6 +195,14 @@ export const StepGeneration = () => {
         toast.error(t('archiveError'));
         setArchiveError(true);
         return false;
+      }
+
+      if (data?.skipped) {
+        setArchiveSkipped(true);
+        if (data?.publicUrl) {
+          setArchiveUrl(data.publicUrl);
+        }
+        return true;
       }
 
       if (data?.publicUrl) {
@@ -308,30 +332,40 @@ export const StepGeneration = () => {
           </h2>
           <p className="mt-3 text-sm text-muted-foreground sm:text-base">{t('generationSubtitle')}</p>
 
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
-            {!htmlReady && (
-              <Badge variant="secondary" className="inline-flex items-center gap-2 border-dashed border-primary/40 bg-primary/10 text-primary">
-                <Loader2 className="h-3 w-3 animate-spin" />
-                {t('htmlBuilding')}
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+          {!htmlReady && (
+            <Badge variant="secondary" className="inline-flex items-center gap-2 border-dashed border-primary/40 bg-primary/10 text-primary">
+              <Loader2 className="h-3 w-3 animate-spin" />
+              {t('htmlBuilding')}
               </Badge>
             )}
-            {persisting && (
-              <Badge variant="outline" className="inline-flex items-center gap-2 border-primary/60 text-primary">
-                <Loader2 className="h-3 w-3 animate-spin" />
-                {t('persisting')}
-              </Badge>
-            )}
-            {archiveSaving && (
-              <Badge variant="outline" className="inline-flex items-center gap-2 border-primary/60 text-primary">
-                <Loader2 className="h-3 w-3 animate-spin" />
-                {t('archiveSaving')}
-              </Badge>
-            )}
-            {edgeDeploying && (
-              <Badge variant="outline" className="inline-flex items-center gap-2 border-primary/60 text-primary">
-                <Loader2 className="h-3 w-3 animate-spin" />
-                {t('edgeDeploying')}
-              </Badge>
+          {persisting && (
+            <Badge variant="outline" className="inline-flex items-center gap-2 border-primary/60 text-primary">
+              <Loader2 className="h-3 w-3 animate-spin" />
+              {t('persisting')}
+            </Badge>
+          )}
+          {persistError && !persisting && (
+            <Badge variant="destructive" className="inline-flex items-center gap-2">
+              {t('persistErrorShort')}
+            </Badge>
+          )}
+          {archiveSaving && (
+            <Badge variant="outline" className="inline-flex items-center gap-2 border-primary/60 text-primary">
+              <Loader2 className="h-3 w-3 animate-spin" />
+              {t('archiveSaving')}
+            </Badge>
+          )}
+          {archiveSkipped && !archiveSaving && !archiveError && (
+            <Badge variant="secondary" className="inline-flex items-center gap-2 border-primary/40 bg-primary/10 text-primary">
+              {t('archiveSkipped')}
+            </Badge>
+          )}
+          {edgeDeploying && (
+            <Badge variant="outline" className="inline-flex items-center gap-2 border-primary/60 text-primary">
+              <Loader2 className="h-3 w-3 animate-spin" />
+              {t('edgeDeploying')}
+            </Badge>
             )}
             {edgeDeploySkipped && !edgeDeploying && (
               <Badge variant="secondary" className="inline-flex items-center gap-2 border-primary/40 bg-primary/10 text-primary">

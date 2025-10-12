@@ -28,7 +28,14 @@ serve(async (req) => {
     const SUPABASE_SERVICE_ROLE_KEY = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY');
 
     if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
-      throw new Error('Supabase service credentials are not configured');
+      console.warn('Supabase service credentials missing, skipping archive.');
+      return new Response(
+        JSON.stringify({
+          skipped: true,
+          reason: 'Supabase service credentials are not configured',
+        }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } },
+      );
     }
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {

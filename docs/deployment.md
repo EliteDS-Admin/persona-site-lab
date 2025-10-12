@@ -34,6 +34,30 @@ Une fonction edge `deploy-edgeone` est disponible pour pousser automatiquement l
 
 > ⚠️ **Ne collez jamais votre token EdgeOne dans le code source.** Utilisez uniquement les secrets d’environnement pour éviter toute fuite.
 
-Pour l’IA, ajoutez la clé OpenAI (`OPENAI_API_KEY`) en secret Supabase (ou via `supabase secrets set`). Le front-end ne voit jamais cette clé : seules les fonctions `structure-profile`, `search-inspirations` et `generate-site-code` y accèdent côté serveur et retournent les résultats au navigateur.
+Pour l’IA, ajoutez :
+
+- Une clé Azure Bing Search (`AZURE_SEARCH_KEY`) pour alimenter la recherche d’inspirations réelles. Vous pouvez personnaliser l’URL via `AZURE_SEARCH_ENDPOINT` si votre ressource Azure utilise un endpoint personnalisé (par défaut `https://api.bing.microsoft.com/v7.0`).
+- Une clé OpenAI (`OPENAI_API_KEY`) qui sert de solution de secours lorsque la recherche Azure n’est pas disponible ou qu’elle renvoie trop peu de résultats. Les réponses génératives (structuration du profil et génération du HTML) continuent d’utiliser cette clé.
+
+Ajoutez également les secrets Supabase suivants :
+
+- `SUPABASE_URL` et `SUPABASE_SERVICE_ROLE_KEY` pour permettre à la fonction `archive-site-code` de créer/mettre à jour le bucket `site-archives`. Sans ces valeurs, l’archivage est automatiquement ignoré.
+- `EDGEONE_API_TOKEN` et `EDGEONE_PROJECT_ID` pour autoriser le déploiement automatique sur EdgeOne (optionnel).
+
+Ces valeurs doivent être ajoutées aux secrets Supabase (ou via `supabase secrets set`). Le front-end ne voit jamais ces clés : seules les fonctions `structure-profile`, `search-inspirations`, `archive-site-code`, `deploy-edgeone` et `generate-site-code` y accèdent côté serveur et retournent les résultats au navigateur.
+
+> Exemple de configuration CLI :
+>
+> ```bash
+> supabase secrets set \
+>   OPENAI_API_KEY=sk-xxx \
+>   AZURE_SEARCH_KEY=xxx \
+>   SUPABASE_URL=https://<project>.supabase.co \
+>   SUPABASE_SERVICE_ROLE_KEY=eyJhbGciOiJ... \
+>   EDGEONE_API_TOKEN=eo-xxx \
+>   EDGEONE_PROJECT_ID=proj_xxx
+> ```
+
+Adaptez les valeurs à votre projet (`project-ref`) si vous utilisez la CLI (`--project-ref`).
 
 Dans tous les cas, le stockage du HTML dans Supabase garantit que vous conservez une copie exploitable du site de chaque utilisateur, sans coûts d’hébergement supplémentaires.
