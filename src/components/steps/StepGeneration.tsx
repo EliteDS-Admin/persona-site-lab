@@ -398,42 +398,55 @@ export const StepGeneration = () => {
                 </h3>
                 <p className="text-sm text-muted-foreground">{t('shareSubtitle')}</p>
                 <div className="flex flex-col gap-3">
-                  <Button
-                    variant="outline"
-                    className="gap-2 border-border/70 text-xs uppercase tracking-[0.3em]"
-                    onClick={() => siteUrl && htmlReady && window.open(siteUrl, '_blank')}
-                    disabled={!htmlReady || !siteUrl || persisting || archiveSaving || edgeDeploying}
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                    {t('viewSite')}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="gap-2 border-border/70 text-xs uppercase tracking-[0.3em]"
-                    onClick={() => previewUrl && htmlReady && window.open(previewUrl, '_blank')}
-                    disabled={!htmlReady || !previewUrl || persisting || archiveSaving || edgeDeploying}
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                    {t('previewLink')}
-                  </Button>
-                  <Button
-                    variant="outline"
-                    className="gap-2 border-border/70 text-xs uppercase tracking-[0.3em]"
-                    onClick={handleCopyLink}
-                    disabled={!htmlReady || persisting || archiveSaving || edgeDeploying}
-                  >
-                    {copied ? <Check className="h-4 w-4" /> : <Share2 className="h-4 w-4" />}
-                    {copied ? t('copied') : t('shareLink')}
-                  </Button>
-                  {archiveUrl && (
-                    <Button
-                      variant="outline"
-                      className="gap-2 border-border/70 text-xs uppercase tracking-[0.3em]"
-                      onClick={() => window.open(archiveUrl, '_blank')}
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                      {t('downloadArchive')}
-                    </Button>
+                  {htmlReady ? (
+                    <>
+                      <Button
+                        variant="outline"
+                        className="gap-2 border-border/70 text-xs uppercase tracking-[0.3em]"
+                        onClick={() => {
+                          if (siteUrl) {
+                            window.open(siteUrl, '_blank');
+                          }
+                        }}
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                        {t('viewSite')}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className="gap-2 border-border/70 text-xs uppercase tracking-[0.3em]"
+                        onClick={() => {
+                          if (previewUrl) {
+                            window.open(previewUrl, '_blank');
+                          }
+                        }}
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                        {t('previewLink')}
+                      </Button>
+                      <Button
+                        variant="outline"
+                        className="gap-2 border-border/70 text-xs uppercase tracking-[0.3em]"
+                        onClick={handleCopyLink}
+                      >
+                        {copied ? <Check className="h-4 w-4" /> : <Share2 className="h-4 w-4" />}
+                        {copied ? t('copied') : t('shareLink')}
+                      </Button>
+                      {archiveUrl && (
+                        <Button
+                          variant="outline"
+                          className="gap-2 border-border/70 text-xs uppercase tracking-[0.3em]"
+                          onClick={() => window.open(archiveUrl, '_blank')}
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                          {t('downloadArchive')}
+                        </Button>
+                      )}
+                    </>
+                  ) : (
+                    <div className="rounded-lg border border-dashed border-border/60 bg-background/60 px-4 py-3 text-xs uppercase tracking-[0.3em] text-muted-foreground">
+                      {t('ctaLocked')}
+                    </div>
                   )}
                   <Button
                     variant="ghost"
@@ -450,15 +463,20 @@ export const StepGeneration = () => {
                 <h3 className="text-base font-semibold text-primary">{t('finalizeTitle')}</h3>
                 <p className="text-2xl font-bold text-primary">{t('price')}</p>
                 <p className="text-sm text-muted-foreground">{t('priceDesc')}</p>
-                <Button
-                  size="lg"
-                  className="mt-2 gap-2 bg-primary text-xs uppercase tracking-[0.3em] hover:bg-primary/90"
-                  onClick={handleWhatsApp}
-                  disabled={!htmlReady || persisting || archiveSaving || edgeDeploying}
-                >
-                  <MessageCircle className="h-5 w-5" />
-                  {t('chatWhatsApp')}
-                </Button>
+                {htmlReady ? (
+                  <Button
+                    size="lg"
+                    className="mt-2 gap-2 bg-primary text-xs uppercase tracking-[0.3em] hover:bg-primary/90"
+                    onClick={handleWhatsApp}
+                  >
+                    <MessageCircle className="h-5 w-5" />
+                    {t('chatWhatsApp')}
+                  </Button>
+                ) : (
+                  <div className="mt-2 rounded-full border border-dashed border-primary/40 px-4 py-2 text-center text-xs uppercase tracking-[0.3em] text-primary">
+                    {t('ctaLockedShort')}
+                  </div>
+                )}
               </div>
             </aside>
           </div>

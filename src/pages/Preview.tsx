@@ -141,15 +141,24 @@ const Preview = () => {
                     {profile.description}
                   </p>
                   <div className="flex flex-wrap justify-center gap-3">
-                    <Button
-                      className="gap-2 bg-primary text-xs uppercase tracking-[0.3em] hover:bg-primary/90"
-                    onClick={() => slug && isStaticReady && window.open(`${window.location.origin}/site/${slug}`, '_blank')}
-                    disabled={!isStaticReady}
-                  >
-                    <ExternalLink className="h-4 w-4" />
-                    {t('viewSite')}
-                  </Button>
-                </div>
+                    {isStaticReady ? (
+                      <Button
+                        className="gap-2 bg-primary text-xs uppercase tracking-[0.3em] hover:bg-primary/90"
+                        onClick={() => {
+                          if (slug) {
+                            window.open(`${window.location.origin}/site/${slug}`, '_blank');
+                          }
+                        }}
+                      >
+                        <ExternalLink className="h-4 w-4" />
+                        {t('viewSite')}
+                      </Button>
+                    ) : (
+                      <div className="rounded-full border border-dashed border-primary/40 px-4 py-2 text-xs uppercase tracking-[0.3em] text-primary">
+                        {t('ctaLockedShort')}
+                      </div>
+                    )}
+                  </div>
                 </div>
               </section>
 
@@ -198,15 +207,20 @@ const Preview = () => {
                 <p className="mt-2 text-3xl font-bold text-primary">{t('price')}</p>
                 <p className="mt-3 text-sm text-muted-foreground">{t('priceDesc')}</p>
                 <div className="mt-6 flex flex-wrap justify-center gap-4">
-                  <Button
-                    size="lg"
-                    className="gap-2 bg-primary text-xs uppercase tracking-[0.3em] hover:bg-primary/90"
-                    onClick={handleWhatsApp}
-                    disabled={!isStaticReady}
-                  >
-                    <MessageCircle className="h-5 w-5" />
-                    {t('chatWhatsApp')}
-                  </Button>
+                  {isStaticReady ? (
+                    <Button
+                      size="lg"
+                      className="gap-2 bg-primary text-xs uppercase tracking-[0.3em] hover:bg-primary/90"
+                      onClick={handleWhatsApp}
+                    >
+                      <MessageCircle className="h-5 w-5" />
+                      {t('chatWhatsApp')}
+                    </Button>
+                  ) : (
+                    <div className="rounded-full border border-dashed border-primary/40 px-4 py-2 text-xs uppercase tracking-[0.3em] text-primary">
+                      {t('ctaLockedShort')}
+                    </div>
+                  )}
                   <Button
                     variant="outline"
                     className="gap-2 border-border/70 text-xs uppercase tracking-[0.3em]"

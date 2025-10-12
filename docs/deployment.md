@@ -13,7 +13,7 @@ Ce projet est conçu pour être déployé facilement sur [Vercel](https://vercel
 3. **Supabase** conserve le code HTML généré par l’IA (`site_code`) et l’edge function `archive-site-code` stocke en plus un fichier `.html` statique par slug dans le bucket `site-archives`. Vous disposez ainsi d’une archive téléchargeable pour chaque projet.
 
 ## Réduction des coûts IA
-- Le code du site est généré à la demande via l’API AI Gateway (modèle `openai/gpt-4o-mini`).
+- Le code du site est généré à la demande via l’API OpenAI (`gpt-4o-mini`).
 - Mettez en place une **politique de régénération** : ne relancez la génération que si l’utilisateur modifie ses réponses.
 - Surveillez les appels depuis le [dashboard Supabase Edge Functions](https://supabase.com/docs/guides/functions), ce qui permet de fixer des quotas si nécessaire.
 
@@ -33,5 +33,7 @@ Une fonction edge `deploy-edgeone` est disponible pour pousser automatiquement l
 3. Surveillez les logs Supabase pour vérifier les retours de l’API EdgeOne et renouvelez le token avant son expiration (rotation recommandée).
 
 > ⚠️ **Ne collez jamais votre token EdgeOne dans le code source.** Utilisez uniquement les secrets d’environnement pour éviter toute fuite.
+
+Pour l’IA, ajoutez la clé OpenAI (`OPENAI_API_KEY`) en secret Supabase (ou via `supabase secrets set`). Le front-end ne voit jamais cette clé : seules les fonctions `structure-profile`, `search-inspirations` et `generate-site-code` y accèdent côté serveur et retournent les résultats au navigateur.
 
 Dans tous les cas, le stockage du HTML dans Supabase garantit que vous conservez une copie exploitable du site de chaque utilisateur, sans coûts d’hébergement supplémentaires.

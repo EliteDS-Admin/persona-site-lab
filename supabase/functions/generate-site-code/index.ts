@@ -17,9 +17,9 @@ serve(async (req) => {
       throw new Error('structuredProfile is required');
     }
 
-    const LOVABLE_API_KEY = Deno.env.get('LOVABLE_API_KEY');
-    if (!LOVABLE_API_KEY) {
-      throw new Error('LOVABLE_API_KEY is not configured');
+    const OPENAI_API_KEY = Deno.env.get('OPENAI_API_KEY');
+    if (!OPENAI_API_KEY) {
+      throw new Error('OPENAI_API_KEY is not configured');
     }
 
     const inspirationsText = (selectedInspirations || [])
@@ -69,14 +69,14 @@ Return a single JSON object with this exact shape:
 The html field must contain a responsive HTML template (no <html> or <body> tags) with modern sections (hero, value proposition, services, testimonial or CTA) tailored to the client.
 Use only semantic HTML tags with inline CSS or <style> blocks. No <script> tags, no external imports, and no mention of Site-Factory. Highlight the provided primary and secondary colours. Keep the tone warm and professional.`;
 
-    const response = await fetch('https://ai.gateway.lovable.dev/v1/chat/completions', {
+    const response = await fetch('https://api.openai.com/v1/chat/completions', {
       method: 'POST',
       headers: {
-        'Authorization': `Bearer ${LOVABLE_API_KEY}`,
+        'Authorization': `Bearer ${OPENAI_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'openai/gpt-4o-mini',
+        model: 'gpt-4o-mini',
         messages: [
           {
             role: 'system',
@@ -91,12 +91,19 @@ Use only semantic HTML tags with inline CSS or <style> blocks. No <script> tags,
 
     if (!response.ok) {
       const errorText = await response.text();
-      console.error('AI gateway error (generate-site-code):', response.status, errorText);
-      throw new Error(`AI Gateway error: ${response.status}`);
+      console.error('OpenAI error (generate-site-code):', response.status, errorText);
+      throw new Error(`OpenAI error: ${response.status}`);
     }
 
     const data = await response.json();
-    const content = data.choices?.[0]?.message?.content;
+    const choice = data.choices?.[0];
+    let content: string | undefined;
+
+    if (Array.isArray(choice?.message?.content)) {
+      content = choice?.message?.content.map((part: { text?: string }) => part?.text ?? '').join('').trim();
+    } else {
+      content = choice?.message?.content;
+    }
 
     if (!content) {
       throw new Error('Empty response from AI when generating site code');
