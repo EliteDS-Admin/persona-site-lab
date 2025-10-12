@@ -24,6 +24,7 @@ const Preview = () => {
   const [inspirations, setInspirations] = useState<Inspiration[]>([]);
   const [loading, setLoading] = useState(true);
   const [siteHtml, setSiteHtml] = useState<string | null>(null);
+  const isStaticReady = Boolean(siteHtml);
 
   useEffect(() => {
     document.documentElement.classList.add('dark');
@@ -116,13 +117,19 @@ const Preview = () => {
             </div>
           ) : profile ? (
             <div className="space-y-10">
-              {sanitizedHtml && (
+              {sanitizedHtml ? (
                 <section className="overflow-hidden rounded-3xl border border-border/60 bg-background/80 shadow-[0_30px_100px_rgba(221,31,20,0.2)]">
                   <div className="border-b border-border/60 bg-primary/10 px-8 py-6">
                     <h2 className="text-sm font-semibold uppercase tracking-[0.3em] text-primary">{t('aiDraftPreview')}</h2>
                     <p className="mt-2 text-xs text-muted-foreground">{t('aiDraftPreviewSubtitle')}</p>
                   </div>
                   <div className="generated-site-output text-left text-base" dangerouslySetInnerHTML={{ __html: sanitizedHtml }} />
+                </section>
+              ) : (
+                <section className="rounded-3xl border border-dashed border-primary/40 bg-background/80 p-10 text-center">
+                  <Loader2 className="mx-auto mb-4 h-10 w-10 animate-spin text-primary" />
+                  <h3 className="text-lg font-semibold text-foreground">{t('htmlBuilding')}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">{t('htmlBuildingDesc')}</p>
                 </section>
               )}
               <section className="relative overflow-hidden rounded-3xl border border-border/60 bg-background/80 p-10 text-center shadow-[0_25px_90px_rgba(221,31,20,0.25)]">
@@ -136,12 +143,13 @@ const Preview = () => {
                   <div className="flex flex-wrap justify-center gap-3">
                     <Button
                       className="gap-2 bg-primary text-xs uppercase tracking-[0.3em] hover:bg-primary/90"
-                      onClick={() => slug && window.open(`${window.location.origin}/site/${slug}`, '_blank')}
-                    >
-                      <ExternalLink className="h-4 w-4" />
-                      {t('viewSite')}
-                    </Button>
-                  </div>
+                    onClick={() => slug && isStaticReady && window.open(`${window.location.origin}/site/${slug}`, '_blank')}
+                    disabled={!isStaticReady}
+                  >
+                    <ExternalLink className="h-4 w-4" />
+                    {t('viewSite')}
+                  </Button>
+                </div>
                 </div>
               </section>
 
@@ -194,6 +202,7 @@ const Preview = () => {
                     size="lg"
                     className="gap-2 bg-primary text-xs uppercase tracking-[0.3em] hover:bg-primary/90"
                     onClick={handleWhatsApp}
+                    disabled={!isStaticReady}
                   >
                     <MessageCircle className="h-5 w-5" />
                     {t('chatWhatsApp')}

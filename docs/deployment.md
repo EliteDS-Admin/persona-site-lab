@@ -10,7 +10,7 @@ Ce projet est conçu pour être déployé facilement sur [Vercel](https://vercel
 ## Procédure optimisée
 1. **Configurer les variables d’environnement** dans Vercel (`VITE_SUPABASE_URL`, `VITE_SUPABASE_PUBLISHABLE_KEY`).
 2. **Déployer** via `vercel --prod` ou connexion Git. Chaque commit sur `main` déclenche un build statique.
-3. **Supabase** conserve le code HTML généré par l’IA (`site_code`). Cela vous donne une copie persistante et réutilisable du site généré sans stocker des fichiers sur Vercel.
+3. **Supabase** conserve le code HTML généré par l’IA (`site_code`) et l’edge function `archive-site-code` stocke en plus un fichier `.html` statique par slug dans le bucket `site-archives`. Vous disposez ainsi d’une archive téléchargeable pour chaque projet.
 
 ## Réduction des coûts IA
 - Le code du site est généré à la demande via l’API AI Gateway (modèle `openai/gpt-4o-mini`).
@@ -19,6 +19,19 @@ Ce projet est conçu pour être déployé facilement sur [Vercel](https://vercel
 
 ## Alternatives gratuites
 - **Netlify** : similaire à Vercel, compatible avec le build Vite. Vous pouvez pointer les webhooks GitHub vers Netlify tout en conservant Supabase pour la persistance.
-- **GitHub Pages** : pour un rendu totalement statique (sans formulaire), exportez le contenu du site généré (champ `site_code`) et committez-le sur une branche dédiée.
+- **GitHub Pages** : pour un rendu totalement statique (sans formulaire), exportez le contenu du site généré (champ `site_code` ou fichier depuis le bucket `site-archives`) et committez-le sur une branche dédiée.
+
+## Déploiement automatique vers EdgeOne (optionnel)
+
+Une fonction edge `deploy-edgeone` est disponible pour pousser automatiquement le HTML statique vers l’API EdgeOne Pages. Pour l’activer :
+
+1. Définissez les variables d’environnement suivantes côté Supabase Functions :
+   - `EDGEONE_API_TOKEN` (ne jamais exposer le token en front, utilisez les secrets Supabase).
+   - `EDGEONE_PROJECT_ID` correspondant au projet EdgeOne cible.
+   - Facultatif : `EDGEONE_API_BASE` si votre instance EdgeOne utilise une URL personnalisée.
+2. Le front appelle automatiquement la fonction après l’archivage. Si les variables d’environnement sont absentes, le déploiement est ignoré et l’interface indique "Déploiement optionnel".
+3. Surveillez les logs Supabase pour vérifier les retours de l’API EdgeOne et renouvelez le token avant son expiration (rotation recommandée).
+
+> ⚠️ **Ne collez jamais votre token EdgeOne dans le code source.** Utilisez uniquement les secrets d’environnement pour éviter toute fuite.
 
 Dans tous les cas, le stockage du HTML dans Supabase garantit que vous conservez une copie exploitable du site de chaque utilisateur, sans coûts d’hébergement supplémentaires.

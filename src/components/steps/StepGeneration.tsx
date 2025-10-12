@@ -29,6 +29,12 @@ export const StepGeneration = () => {
   const [copied, setCopied] = useState(false);
   const [persisting, setPersisting] = useState(false);
   const [htmlReady, setHtmlReady] = useState(false);
+  const [archiveSaving, setArchiveSaving] = useState(false);
+  const [archiveUrl, setArchiveUrl] = useState<string | null>(null);
+  const [archiveError, setArchiveError] = useState(false);
+  const [edgeDeploying, setEdgeDeploying] = useState(false);
+  const [edgeDeploySkipped, setEdgeDeploySkipped] = useState(false);
+  const [edgeDeployError, setEdgeDeployError] = useState(false);
 
   useEffect(() => {
     void generateSite();
@@ -39,6 +45,10 @@ export const StepGeneration = () => {
     setGenerating(true);
     setHtmlReady(false);
     setGeneratedSiteHtml(null);
+    setArchiveUrl(null);
+    setArchiveError(false);
+    setEdgeDeploySkipped(false);
+    setEdgeDeployError(false);
 
     try {
       const { data, error } = await supabase.functions.invoke('structure-profile', {
@@ -99,8 +109,16 @@ export const StepGeneration = () => {
 
       if (htmlData?.html) {
         setGeneratedSiteHtml(htmlData.html);
+        const persisted = await persistProject(slug, structured, htmlData.html);
+        if (!persisted) {
+          return false;
+        }
+        const archived = await archiveSiteCode(slug, htmlData.html);
+        if (!archived) {
+          return false;
+        }
+        await deployEdgeOne(slug, htmlData.html);
         setHtmlReady(true);
-        await persistProject(slug, structured, htmlData.html);
         return true;
       } else {
         toast.error(t('errorGeneratingHtml'));
@@ -115,7 +133,7 @@ export const StepGeneration = () => {
 
   const persistProject = async (slug: string, structured: typeof structuredProfile, siteHtml: string | null) => {
     if (!structured) {
-      return;
+      return false;
     }
 
     setPersisting(true);
@@ -133,12 +151,80 @@ export const StepGeneration = () => {
       if (error) {
         console.error('Error saving project:', error);
         toast.error(t('persistError'));
+        return false;
       }
+      return true;
     } catch (error) {
       console.error('Failed to persist project:', error);
       toast.error(t('persistError'));
+      return false;
     } finally {
       setPersisting(false);
+    }
+  };
+
+  const archiveSiteCode = async (slug: string, siteHtml: string) => {
+    setArchiveSaving(true);
+    setArchiveError(false);
+    try {
+      const { data, error } = await supabase.functions.invoke('archive-site-code', {
+        body: {
+          slug,
+          html: siteHtml,
+        },
+      });
+
+      if (error || data?.error) {
+        console.error('Error archiving site code:', error || data?.error);
+        toast.error(t('archiveError'));
+        setArchiveError(true);
+        return false;
+      }
+
+      if (data?.publicUrl) {
+        setArchiveUrl(data.publicUrl);
+      }
+
+      return true;
+    } catch (error) {
+      console.error('Failed to archive site code:', error);
+      toast.error(t('archiveError'));
+      setArchiveError(true);
+      return false;
+    } finally {
+      setArchiveSaving(false);
+    }
+  };
+
+  const deployEdgeOne = async (slug: string, siteHtml: string) => {
+    setEdgeDeploying(true);
+    setEdgeDeployError(false);
+    setEdgeDeploySkipped(false);
+
+    try {
+      const { data, error } = await supabase.functions.invoke('deploy-edgeone', {
+        body: {
+          slug,
+          html: siteHtml,
+        },
+      });
+
+      if (error) {
+        throw error;
+      }
+
+      if (data?.skipped) {
+        setEdgeDeploySkipped(true);
+      }
+
+      return true;
+    } catch (error) {
+      console.error('Failed to deploy site to EdgeOne:', error);
+      toast.error(t('edgeDeployError'));
+      setEdgeDeployError(true);
+      return false;
+    } finally {
+      setEdgeDeploying(false);
     }
   };
 
@@ -159,7 +245,7 @@ export const StepGeneration = () => {
   }, [generatedSlug]);
 
   const handleCopyLink = () => {
-    if (siteUrl) {
+    if (siteUrl && htmlReady) {
       navigator.clipboard.writeText(siteUrl);
       setCopied(true);
       toast.success(t('copied'));
@@ -168,6 +254,9 @@ export const StepGeneration = () => {
   };
 
   const handleWhatsApp = () => {
+    if (!htmlReady || !siteUrl) {
+      return;
+    }
     const message =
       i18n.language === 'fr'
         ? `Bonjour, je souhaite finaliser mon site généré sur Site-Factory : ${siteUrl}`
@@ -219,24 +308,53 @@ export const StepGeneration = () => {
           </h2>
           <p className="mt-3 text-sm text-muted-foreground sm:text-base">{t('generationSubtitle')}</p>
 
-              {persisting && (
-                <Badge variant="outline" className="mt-4 inline-flex items-center gap-2 border-primary/60 text-primary">
-                  <Loader2 className="h-3 w-3 animate-spin" />
-                  {t('persisting')}
-                </Badge>
-              )}
-              {!htmlReady && (
-                <Badge variant="secondary" className="mt-4 inline-flex items-center gap-2 border-dashed border-primary/40 bg-primary/10 text-primary">
-                  <Loader2 className="h-3 w-3 animate-spin" />
-                  {t('htmlBuilding')}
-                </Badge>
-              )}
-              {htmlReady && (
-                <Badge variant="secondary" className="mt-4 inline-flex items-center gap-2 border-primary/40 bg-primary/10 text-primary">
-                  <Check className="h-3 w-3" />
-                  {t('htmlReady')}
-                </Badge>
-              )}
+          <div className="mt-4 flex flex-wrap items-center justify-center gap-3">
+            {!htmlReady && (
+              <Badge variant="secondary" className="inline-flex items-center gap-2 border-dashed border-primary/40 bg-primary/10 text-primary">
+                <Loader2 className="h-3 w-3 animate-spin" />
+                {t('htmlBuilding')}
+              </Badge>
+            )}
+            {persisting && (
+              <Badge variant="outline" className="inline-flex items-center gap-2 border-primary/60 text-primary">
+                <Loader2 className="h-3 w-3 animate-spin" />
+                {t('persisting')}
+              </Badge>
+            )}
+            {archiveSaving && (
+              <Badge variant="outline" className="inline-flex items-center gap-2 border-primary/60 text-primary">
+                <Loader2 className="h-3 w-3 animate-spin" />
+                {t('archiveSaving')}
+              </Badge>
+            )}
+            {edgeDeploying && (
+              <Badge variant="outline" className="inline-flex items-center gap-2 border-primary/60 text-primary">
+                <Loader2 className="h-3 w-3 animate-spin" />
+                {t('edgeDeploying')}
+              </Badge>
+            )}
+            {edgeDeploySkipped && !edgeDeploying && (
+              <Badge variant="secondary" className="inline-flex items-center gap-2 border-primary/40 bg-primary/10 text-primary">
+                {t('edgeDeploySkipped')}
+              </Badge>
+            )}
+            {htmlReady && !archiveSaving && !persisting && !edgeDeploying && (
+              <Badge variant="secondary" className="inline-flex items-center gap-2 border-primary/40 bg-primary/10 text-primary">
+                <Check className="h-3 w-3" />
+                {t('htmlReady')}
+              </Badge>
+            )}
+            {archiveError && (
+              <Badge variant="destructive" className="inline-flex items-center gap-2">
+                {t('archiveErrorShort')}
+              </Badge>
+            )}
+            {edgeDeployError && (
+              <Badge variant="destructive" className="inline-flex items-center gap-2">
+                {t('edgeDeployErrorShort')}
+              </Badge>
+            )}
+          </div>
 
           <div className="mt-10 grid gap-8 text-left lg:grid-cols-[2fr_1fr]">
             <div className="space-y-6 rounded-2xl border border-border/60 bg-background/70 p-6">
@@ -283,7 +401,8 @@ export const StepGeneration = () => {
                   <Button
                     variant="outline"
                     className="gap-2 border-border/70 text-xs uppercase tracking-[0.3em]"
-                    onClick={() => siteUrl && window.open(siteUrl, '_blank')}
+                    onClick={() => siteUrl && htmlReady && window.open(siteUrl, '_blank')}
+                    disabled={!htmlReady || !siteUrl || persisting || archiveSaving || edgeDeploying}
                   >
                     <ExternalLink className="h-4 w-4" />
                     {t('viewSite')}
@@ -291,8 +410,8 @@ export const StepGeneration = () => {
                   <Button
                     variant="outline"
                     className="gap-2 border-border/70 text-xs uppercase tracking-[0.3em]"
-                    onClick={() => previewUrl && window.open(previewUrl, '_blank')}
-                    disabled={!previewUrl}
+                    onClick={() => previewUrl && htmlReady && window.open(previewUrl, '_blank')}
+                    disabled={!htmlReady || !previewUrl || persisting || archiveSaving || edgeDeploying}
                   >
                     <ExternalLink className="h-4 w-4" />
                     {t('previewLink')}
@@ -301,10 +420,21 @@ export const StepGeneration = () => {
                     variant="outline"
                     className="gap-2 border-border/70 text-xs uppercase tracking-[0.3em]"
                     onClick={handleCopyLink}
+                    disabled={!htmlReady || persisting || archiveSaving || edgeDeploying}
                   >
                     {copied ? <Check className="h-4 w-4" /> : <Share2 className="h-4 w-4" />}
                     {copied ? t('copied') : t('shareLink')}
                   </Button>
+                  {archiveUrl && (
+                    <Button
+                      variant="outline"
+                      className="gap-2 border-border/70 text-xs uppercase tracking-[0.3em]"
+                      onClick={() => window.open(archiveUrl, '_blank')}
+                    >
+                      <ExternalLink className="h-4 w-4" />
+                      {t('downloadArchive')}
+                    </Button>
+                  )}
                   <Button
                     variant="ghost"
                     className="gap-2 text-xs uppercase tracking-[0.3em] text-muted-foreground hover:text-foreground"
@@ -324,6 +454,7 @@ export const StepGeneration = () => {
                   size="lg"
                   className="mt-2 gap-2 bg-primary text-xs uppercase tracking-[0.3em] hover:bg-primary/90"
                   onClick={handleWhatsApp}
+                  disabled={!htmlReady || persisting || archiveSaving || edgeDeploying}
                 >
                   <MessageCircle className="h-5 w-5" />
                   {t('chatWhatsApp')}
