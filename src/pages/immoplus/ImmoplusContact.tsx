@@ -1,8 +1,9 @@
 import { Mail, MapPin, Send } from "lucide-react";
 import WhatsappIcon from "@/components/icons/WhatsappIcon";
+import { WHATSAPP_URL } from "./constants";
 
 const contacts = [
-  { label: "Standard", value: "(+237) 675 926 263" },
+  { label: "Standard", value: "(+237) 675 92 62 63" },
   { label: "Commercial", value: "(+237) 698 120 450" },
   { label: "Direction", value: "(+237) 677 205 314" },
 ];
@@ -16,7 +17,7 @@ const ImmoplusContact = () => {
           Restons en contact pour concrétiser votre projet
         </h1>
         <p className="mt-4 text-sm leading-relaxed text-gray-700">
-          Localisation : Douala (Face Institut Economique ES), BP 9300. Notre équipe vous répond et organise les visites de terrain, les rendez-vous bancaires et notariaux.
+          Localisation : Douala (Face Idimed Bonapriso, BP 2800) • Yaoundé (Prestige Hôtel) • Kribi. Notre équipe organise les visites de terrain, les rendez-vous bancaires et notariaux.
         </p>
       </section>
 
@@ -37,8 +38,8 @@ const ImmoplusContact = () => {
               </p>
               <p className="flex items-center gap-2">
                 <WhatsappIcon className="h-4 w-4 text-[#8e1118]" />
-                <a href="https://wa.me/237675926263" className="hover:underline" target="_blank" rel="noreferrer">
-                  +237 675 926 263
+                <a href={WHATSAPP_URL} className="hover:underline" target="_blank" rel="noreferrer">
+                  +237 675 92 62 63
                 </a>
               </p>
               <p className="flex items-center gap-2">
@@ -92,6 +93,15 @@ const ImmoplusContact = () => {
             Envoyer ma demande
             <Send className="h-4 w-4" />
           </button>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center gap-2 rounded-full border border-[#8e1118] px-6 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118] transition hover:bg-[#8e1118] hover:text-white"
+          >
+            Discuter sur WhatsApp
+            <WhatsappIcon className="h-4 w-4" />
+          </a>
           <p className="text-xs text-gray-500">
             Nos équipes vous recontactent sous 24 heures ouvrées pour planifier un échange personnalisé.
           </p>

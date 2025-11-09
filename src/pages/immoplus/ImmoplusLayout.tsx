@@ -1,6 +1,7 @@
 import { Facebook, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import WhatsappIcon from "@/components/icons/WhatsappIcon";
+import { WHATSAPP_URL } from "./constants";
 
 const navLinks = [
   { to: "/", label: "Accueil" },
@@ -21,7 +22,7 @@ const ImmoplusLayout = () => {
             </span>
             <span className="flex items-center gap-1">
               <Phone className="h-3.5 w-3.5" />
-              (+237) 675 926 263 / 698 120 450 / 677 205 314
+              (+237) 675 92 62 63 / 698 120 450 / 677 205 314
             </span>
             <span className="flex items-center gap-1">
               <MapPin className="h-3.5 w-3.5" />
@@ -48,7 +49,7 @@ const ImmoplusLayout = () => {
               <Linkedin className="h-4 w-4" />
             </a>
             <a
-              href="https://wa.me/237675926263"
+              href={WHATSAPP_URL}
               target="_blank"
               rel="noreferrer"
               className="flex h-8 w-8 items-center justify-center rounded-full bg-[#25D366] text-white transition hover:brightness-110"
@@ -82,12 +83,14 @@ const ImmoplusLayout = () => {
               </NavLink>
             ))}
           </nav>
-          <Link
-            to="/contact"
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noreferrer"
             className="hidden items-center gap-2 rounded-full bg-[#8e1118] px-5 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-white transition hover:bg-[#c51c22] md:flex"
           >
             Contact
-          </Link>
+          </a>
         </div>
         <div className="mx-auto block max-w-6xl px-4 pb-4 md:hidden">
           <nav className="flex flex-wrap items-center gap-3 text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-[#8e1118]">
@@ -131,7 +134,9 @@ const ImmoplusLayout = () => {
             </a>
             <span className="hidden h-4 w-px bg-white/40 sm:block" />
             <a
-              href="https://wa.me/237675926263"
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noreferrer"
               className="text-sm font-semibold uppercase tracking-[0.3em] text-white transition hover:text-[#f5c24b]"
             >
               WhatsApp

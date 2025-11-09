@@ -1,42 +1,46 @@
 import { useState } from "react";
 import { ArrowRight, PlayCircle, Sparkles } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
+import { WHATSAPP_URL } from "./constants";
 
 const statements = [
   {
     key: "slogan",
     title: "Slogan",
-    text: "Le boulanger de l'immobilier",
+    text: "Deviens propriétaire grâce à Immoplus (le boulanger de l'immobilier)",
   },
   {
     key: "message",
     title: "Message",
-    text: "Réalisons ensemble votre rêve de devenir propriétaire en toute confiance.",
+    text: "Réalisons ensemble votre rêve (vos ambitions, notre mission. Votre confiance, notre fondation)",
   },
   {
     key: "mission",
     title: "Mission",
-    text: "Offrir des solutions foncières viabilisées et sécurisées accessibles à toutes les familles camerounaises.",
+    text: "Créée il y a plus de 15 ans, ImmoPlus est une société civile immobilière camerounaise spécialisée dans la vente de terrains titrés, la construction de logements et la gestion de patrimoine immobilier.",
   },
   {
     key: "volonte",
     title: "Volonté",
-    text: "Rester à vos côtés de la prospection à la remise des clés grâce à une équipe engagée et disponible.",
+    text: "Immoplus s'engage à vous fournir un maximum d'accompagnement de l'obtention de votre titre foncier à la remise des clés. Nous vous apprenons à mieux gérer votre bien immobilier.",
   },
 ];
 
 const highlights = [
   {
-    title: "Terrains sécurisés",
-    description: "Des hectares maîtrisés à Douala, Yaoundé et Kribi avec titres fonciers disponibles.",
+    title: "Accessibilité et social",
+    description: "Notre approche rend l'accès à la propriété possible pour chaque famille grâce à des solutions adaptées.",
+    color: "bg-[#3d6b35]",
   },
   {
-    title: "Accompagnement sur mesure",
-    description: "Conseils administratifs, juridiques et financiers pour concrétiser chaque dossier.",
+    title: "Transparence et confiance",
+    description: "Nous assurons un suivi clair des procédures et partageons chaque étape avec nos clients.",
+    color: "bg-[#f5c24b]",
   },
   {
-    title: "Solutions clé en main",
-    description: "Des gammes d'habitations livrées prêtes à habiter avec possibilité d'extension.",
+    title: "Engagement et proximité",
+    description: "Présents à Douala, Yaoundé et Kribi, nous restons proches de vos chantiers et de vos attentes.",
+    color: "bg-[#8e1118]",
   },
 ];
 
@@ -63,11 +67,10 @@ const ImmoplusHome = () => {
                 <span className="text-white/70">Depuis 2010</span>
               </div>
               <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl">
-                L'immobilier camerounais accessible, sécurisé et durable
+                Immoplus réalise vos projets immobiliers à Douala, Yaoundé et Kribi
               </h1>
               <p className="text-base text-white/90">
-                IMMO-PLUS conçoit et livre des espaces de vie où chaque détail compte. Notre équipe se mobilise pour vous proposer
-                des terrains lotis, des maisons prêtes à habiter et un accompagnement administratif complet.
+                De la première visite jusqu'à la remise des clés, Immoplus vous guide sur des terrains titrés et des constructions modulaires pensées pour durer.
               </p>
               <div className="flex flex-wrap items-center gap-4">
                 <Link
@@ -136,7 +139,9 @@ const ImmoplusHome = () => {
           <div className="grid gap-4 sm:grid-cols-2">
             {highlights.map((highlight) => (
               <article key={highlight.title} className="rounded-3xl border border-[#eadad6] bg-white/80 p-6 shadow-sm">
-                <Sparkles className="h-6 w-6 text-[#8e1118]" />
+                <div className={`flex h-10 w-10 items-center justify-center rounded-full ${highlight.color} text-white`}>
+                  <Sparkles className="h-5 w-5" />
+                </div>
                 <h3 className="mt-3 text-lg font-semibold text-[#8e1118]">{highlight.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-gray-700">{highlight.description}</p>
               </article>
@@ -176,13 +181,15 @@ const ImmoplusHome = () => {
               constitution des dossiers et les démarches notariales.
             </p>
           </div>
-          <Link
-            to="/contact"
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-full bg-[#8e1118] px-7 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-white transition hover:bg-[#c51c22]"
           >
-            Prendre rendez-vous
+            Contacter Immoplus
             <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
+          </a>
         </div>
       </section>
     </div>

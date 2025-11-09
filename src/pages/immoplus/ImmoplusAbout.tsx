@@ -1,19 +1,21 @@
 const objectives = [
-  "Accroître la satisfaction des clients.",
-  "Créer des logements décents et des espaces communautaires.",
-];
-
-const skills = [
-  "Gestion administrative et sociale.",
-  "Conseils juridiques.",
-  "Gestion de projets : engagement et conformité contractuelle.",
-  "Gestion des chantiers.",
+  "Gérer l’accès à la propriété immobilière",
+  "Construire de nouveaux habitats sociaux",
+  "Stabiliser d’une certaine manière le patrimoine immobilier de nos clients",
+  "Créer des plus-values par les différents partenaires",
+  "Créer et développer des sites touristiques",
 ];
 
 const values = [
-  "Proximité client.",
-  "Culture des résultats.",
-  "Excellence opérationnelle.",
+  { label: "Accessibilité et social", color: "bg-[#3d6b35]" },
+  { label: "Transparence et confiance", color: "bg-[#f5c24b]" },
+  { label: "Engagement et proximité", color: "bg-[#8e1118]" },
+];
+
+const locations = [
+  "Douala (Face Idimed Bonapriso, BP 2800, Contact 675 92 62 63)",
+  "Yaoundé (Prestige Hôtel)",
+  "Kribi",
 ];
 
 const ImmoplusAbout = () => {
@@ -22,17 +24,27 @@ const ImmoplusAbout = () => {
       <section className="space-y-6 rounded-[40px] bg-white p-8 shadow-sm">
         <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118]">À propos</p>
         <h1 className="text-3xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">
-          Présentation de l'entreprise : vision et objectifs
+          Présentation de l'entreprise
         </h1>
         <p className="text-sm leading-relaxed text-gray-700">
-          La société IMMO-PLUS est une entreprise spécialisée dans la vente des terrains lotis et aménagés. Elle est une initiative du groupe TANKO Ets, compagnie qui évolue dans les domaines de la vente des véhicules, location, import-export et distribution de pièces détachées automobiles, bâtiments et travaux publics.
+          Le principal porteur de projet est la SCI ImmoPlus reconnu représenté par Mr TANKO Eli, son directeur général. La SCI IMMO-PLUS est une structure en développement depuis une quinzaine d’années avec à sa tête le porteur de projet en la personne de Mr TANKO Eli.
         </p>
         <p className="text-sm leading-relaxed text-gray-700">
-          IMMO-PLUS a été fondée par Mr TANKO Et. La direction, assurée par Mr TANKO Et, se compose d'une équipe pluridisciplinaire mobilisée pour sécuriser vos projets immobiliers.
+          À ses débuts ImmoPlus a été pensé pour la mise en œuvre des maisons évolutives et modulaires dans différente ville du Cameroun avec un concept qui adaptait le style de maison au portefeuille du propriétaire. Le concept était basé sur un plan modulable et une construction évolutive tout ceci en fonction du revenu du client final avec pour objectif principal de permettre à ce dernier d’être propriétaire d’un terrain et de vivre dans un module de sa facture (maison) le temps de le finaliser.
+        </p>
+        <p className="text-sm leading-relaxed text-gray-700">
+          C’est ce qui donne cette connotation de maison évolutive, c’est-à-dire construire au fur et à mesure des revenus disponibles du propriétaire ou client final. La SCI ImmoPlus par son étude et son observation met sur pied un accompagnement pour crédit bancaire / immobilière pour des personnes en difficulté et à revenu moyen, il offre aussi ses expertises et services pour un accompagnement pour l’obtention des documents fonciers.
         </p>
       </section>
 
-      <section className="grid gap-6 lg:grid-cols-3">
+      <section className="rounded-[40px] bg-white p-8 shadow-sm">
+        <h2 className="text-2xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">Un leadership expérimenté</h2>
+        <p className="mt-4 text-sm leading-relaxed text-gray-700">
+          Le Directeur général, Mr TANKO Eli du haut de ses 30 ans d’expérience dans la conduite des chantiers de bâtiment et travaux publics, il est titulaire d’un baccalauréat F4 (Génie Civile) et un DESS (Bac+5) en gestion et innovation ; Dans le cadre du BTP, il est spécialisé en économie du bâtiment, ayant dans son CV plusieurs expériences de gestion et d’animation des grands chantiers.
+        </p>
+      </section>
+
+      <section className="grid gap-6 lg:grid-cols-2">
         <article className="rounded-[32px] bg-white p-6 shadow-sm">
           <h2 className="text-lg font-semibold uppercase tracking-[0.3em] text-[#8e1118]">Nos objectifs</h2>
           <ul className="mt-4 space-y-2 text-sm leading-relaxed text-gray-700">
@@ -45,23 +57,14 @@ const ImmoplusAbout = () => {
           </ul>
         </article>
         <article className="rounded-[32px] bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold uppercase tracking-[0.3em] text-[#8e1118]">Nos compétences</h2>
-          <ul className="mt-4 space-y-2 text-sm leading-relaxed text-gray-700">
-            {skills.map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-[#f5c24b]" />
-                <span>{item}</span>
-              </li>
-            ))}
-          </ul>
-        </article>
-        <article className="rounded-[32px] bg-white p-6 shadow-sm">
           <h2 className="text-lg font-semibold uppercase tracking-[0.3em] text-[#8e1118]">Nos valeurs</h2>
-          <ul className="mt-4 space-y-2 text-sm leading-relaxed text-gray-700">
-            {values.map((item) => (
-              <li key={item} className="flex items-start gap-2">
-                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-[#f5c24b]" />
-                <span>{item}</span>
+          <ul className="mt-4 space-y-3 text-sm leading-relaxed text-gray-700">
+            {values.map((value) => (
+              <li key={value.label} className="flex items-center gap-3">
+                <span className={`flex h-10 w-10 items-center justify-center rounded-full text-xs font-semibold uppercase tracking-[0.2em] text-white ${value.color}`}>
+                  ●
+                </span>
+                <span>{value.label}</span>
               </li>
             ))}
           </ul>
@@ -69,23 +72,19 @@ const ImmoplusAbout = () => {
       </section>
 
       <section className="rounded-[40px] bg-white p-8 shadow-sm">
-        <h2 className="text-2xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">Un leadership expérimenté</h2>
+        <h2 className="text-2xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">Chiffres clés et implantations</h2>
         <p className="mt-4 text-sm leading-relaxed text-gray-700">
-          Le Directeur général, Mr TANKO Et, a plus de 30 ans d'expérience dans la conduite des chantiers et des équipes techniques. Il est titulaire d'un Master d'Audit (ENAM) et d'un Certificat de spécialité en Génie Civil (DESS). Depuis plus de 15 ans, il encadre les équipes IMMO-PLUS et structure les partenariats avec les administrations publiques et privées.
+          Chiffres clés : nombre exact de maisons disponibles.
         </p>
-      </section>
-
-      <section className="rounded-[40px] bg-white p-8 shadow-sm">
-        <h2 className="text-2xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">Valeurs et implantation</h2>
-        <p className="mt-4 text-sm leading-relaxed text-gray-700">
-          Valeurs : proximité client, culture des résultats, excellence opérationnelle.
-        </p>
-        <p className="mt-2 text-sm leading-relaxed text-gray-700">
-          Localisation : Douala (Face Institut Economique ES), BP 9300.
-        </p>
-        <p className="mt-2 text-sm leading-relaxed text-gray-700">
-          Contacts : (+237) 675 926 263 / 698 120 450 / 677 205 314.
-        </p>
+        <h3 className="mt-6 text-sm font-semibold uppercase tracking-[0.3em] text-[#8e1118]">Localisation</h3>
+        <ul className="mt-3 space-y-2 text-sm leading-relaxed text-gray-700">
+          {locations.map((location) => (
+            <li key={location} className="flex items-start gap-2">
+              <span className="mt-1 inline-block h-2 w-2 rounded-full bg-[#8e1118]" />
+              <span>{location}</span>
+            </li>
+          ))}
+        </ul>
       </section>
     </div>
   );

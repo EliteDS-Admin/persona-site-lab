@@ -1,23 +1,42 @@
-import { Building2, FileCheck2, Landmark } from "lucide-react";
+import { Banknote, Building2, FileCheck2, ScrollText, ShieldCheck, Users } from "lucide-react";
+import { WHATSAPP_URL } from "./constants";
 
 const services = [
+  {
+    icon: Users,
+    title: "Gestion patrimoine pour les particuliers",
+    description:
+      "Immoplus stabilise et valorise le patrimoine immobilier de ses clients particuliers grâce à un suivi personnalisé et des solutions adaptées aux revenus de chacun.",
+  },
+  {
+    icon: ShieldCheck,
+    title: "Réalisation : étude et expertise",
+    description:
+      "La réalisation, étude et expertise consiste à mettre en œuvre un projet en passant par des étapes d'analyse approfondie (étude) et de validation par un spécialiste (expertise) afin de garantir sa faisabilité technique, financière et sa réussite globale. Cela implique de la conception à la planification, en s'appuyant sur des données fiables et des avis professionnels pour éclairer le projet et résoudre les problèmes potentiels.",
+  },
+  {
+    icon: FileCheck2,
+    title: "Réalisation plan de lotissement (2D, 3D)",
+    description:
+      "Un plan de lotissement 2D montre la division d'un terrain en parcelles (lots) à l'aide de dessins techniques plats, spécifiant la taille et l'emplacement des lots, les rues, les espaces verts et les équipements. Un plan 3D représente ce même lotissement de manière réaliste et volumétrique, offrant une visualisation tridimensionnelle pour mieux appréhender l'aménagement de l'espace, valider les choix et présenter le projet de manière plus immersive et émotionnelle.",
+  },
   {
     icon: Building2,
     title: "Vente de terrain et de maison",
     description:
-      "La vente des terrains et des maisons s'est donnée mission de décrire la liste des biens disponibles, leurs caractéristiques, leurs atouts et bien entendu le prix. IMMO-PLUS vous accompagne tout au long du processus de prospection jusqu'à la signature définitive chez le notaire.",
+      "La vente d'un terrain ou d'une maison implique de décrire le bien (localisation, surface, composition, état), de réunir des documents légaux (titre de propriété, diagnostics), de consulter le plan d'urbanisme local (PLU), de borner le terrain, et de fixer un prix. Un acte de vente détaillé est ensuite établi et signé devant notaire, incluant le prix, les modalités de paiement, et les éventuelles servitudes.",
   },
   {
-    icon: Landmark,
-    title: "Accompagnement pour crédit bancaire/immobilier",
+    icon: Banknote,
+    title: "Accompagnement pour crédit bancaire",
     description:
-      "Pour accorder un prêt immobilier par une institution bancaire, plusieurs conditions sont nécessaires, IMMO-PLUS vous accompagne pour l'élaboration des documents administratifs et justificatifs.",
+      "L'accompagnement pour un crédit immobilier inclut plusieurs étapes clés : le conseil personnalisé, l'aide au montage du dossier, la comparaison des offres et la négociation avec les banques, afin d'obtenir des conditions de financement avantageuses.",
   },
   {
-    icon: FileCheck2,
+    icon: ScrollText,
     title: "Accompagnement pour obtention des documents fonciers",
     description:
-      "La valorisation d'un bien foncier passe par l'obtention et la sécurisation des documents administratifs. IMMO-PLUS se charge de suivre pour vous les démarches auprès des services cadastraux, notariaux et financiers (Cadastre, conservation foncière, impôts et domaines, ANOR et autres administrations (MINDAF)).",
+      "L'accompagnement pour l'obtention des documents fonciers inclut l'assistance à la constitution du dossier de demande de titre foncier, la préparation des pièces justificatives, le dépôt des demandes auprès des services administratifs compétents (Services des Domaines, Cadastre, etc.), le suivi des étapes de la procédure comme le bornage et les expertises terrain, et l'obtention finale du titre foncier auprès des autorités (MINDCAF).",
   },
 ];
 
@@ -49,6 +68,14 @@ const ImmoplusServices = () => {
         <p className="mt-3 text-sm leading-relaxed text-white/85">
           De la sélection du site à la remise des clés, un conseiller IMMO-PLUS reste votre interlocuteur privilégié pour orchestrer les rencontres avec les banques, les notaires et les administrations.
         </p>
+        <a
+          href={WHATSAPP_URL}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-6 inline-flex items-center justify-center rounded-full bg-white px-6 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118] transition hover:bg-[#f5c24b]"
+        >
+          Échanger sur WhatsApp
+        </a>
       </section>
     </div>
   );
