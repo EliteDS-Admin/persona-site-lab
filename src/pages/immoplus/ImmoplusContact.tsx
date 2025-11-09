@@ -1,65 +1,51 @@
-import { Mail, MapPin, Phone, Send } from "lucide-react";
+import { Mail, MapPin, Send } from "lucide-react";
+import WhatsappIcon from "@/components/icons/WhatsappIcon";
 
-const offices = [
-  {
-    city: "Douala",
-    address: "Quartier Bonapriso, Immeuble Blue Tower",
-    phone: "(+237) 675 926 263",
-  },
-  {
-    city: "Yaoundé",
-    address: "Quartier Bastos, Rue des Ambassades",
-    phone: "(+237) 698 120 450",
-  },
-  {
-    city: "Kribi",
-    address: "Zone portuaire, Lotissement Palm Beach",
-    phone: "(+237) 677 205 314",
-  },
+const contacts = [
+  { label: "Standard", value: "(+237) 675 926 263" },
+  { label: "Commercial", value: "(+237) 698 120 450" },
+  { label: "Direction", value: "(+237) 677 205 314" },
 ];
 
 const ImmoplusContact = () => {
   return (
     <div className="mx-auto max-w-6xl space-y-14 px-4">
       <section className="rounded-[40px] bg-white p-8 shadow-sm">
-        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118]">Entrons en contact</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118]">Contact</p>
         <h1 className="mt-3 text-3xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">
-          IMMO-PLUS à votre écoute
+          Restons en contact pour concrétiser votre projet
         </h1>
         <p className="mt-4 text-sm leading-relaxed text-gray-700">
-          Un projet immobilier en tête ? Nos conseillers vous répondent rapidement pour vous guider, partager nos opportunités
-          disponibles et organiser une visite de terrain.
+          Localisation : Douala (Face Institut Economique ES), BP 9300. Notre équipe vous répond et organise les visites de terrain, les rendez-vous bancaires et notariaux.
         </p>
       </section>
 
       <section className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
         <div className="space-y-6">
           <div className="rounded-3xl bg-white p-6 shadow-sm">
-            <h2 className="text-lg font-semibold text-[#8e1118]">Coordonnées principales</h2>
+            <h2 className="text-lg font-semibold text-[#8e1118]">Coordonnées directes</h2>
             <div className="mt-4 space-y-3 text-sm text-gray-700">
+              {contacts.map((contact) => (
+                <p key={contact.label} className="flex items-center justify-between gap-2 rounded-2xl bg-[#fdf8f5] px-4 py-3">
+                  <span className="font-semibold text-[#8e1118]">{contact.label}</span>
+                  <span>{contact.value}</span>
+                </p>
+              ))}
               <p className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-[#8e1118]" />
                 immoplus@gmail.com
               </p>
               <p className="flex items-center gap-2">
-                <Phone className="h-4 w-4 text-[#8e1118]" />
-                (+237) 675 926 263
+                <WhatsappIcon className="h-4 w-4 text-[#8e1118]" />
+                <a href="https://wa.me/237675926263" className="hover:underline" target="_blank" rel="noreferrer">
+                  +237 675 926 263
+                </a>
               </p>
               <p className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-[#8e1118]" />
                 Douala • Yaoundé • Kribi
               </p>
             </div>
-          </div>
-
-          <div className="grid gap-4 sm:grid-cols-3">
-            {offices.map((office) => (
-              <div key={office.city} className="rounded-3xl bg-white p-5 text-sm text-gray-700 shadow-sm">
-                <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118]">{office.city}</p>
-                <p className="mt-2 leading-relaxed">{office.address}</p>
-                <p className="mt-3 font-semibold text-[#8e1118]">{office.phone}</p>
-              </div>
-            ))}
           </div>
         </div>
 

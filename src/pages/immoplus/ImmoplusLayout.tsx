@@ -4,10 +4,9 @@ import WhatsappIcon from "@/components/icons/WhatsappIcon";
 
 const navLinks = [
   { to: "/", label: "Accueil" },
-  { to: "/a-propos", label: "Qui sommes-nous ?" },
-  { to: "/destinations", label: "Destinations" },
-  { to: "/services", label: "Services" },
-  { to: "/contact", label: "Contact" },
+  { to: "/nos-biens", label: "Nos biens" },
+  { to: "/nos-services", label: "Nos services" },
+  { to: "/a-propos", label: "À propos" },
 ];
 
 const ImmoplusLayout = () => {
@@ -22,11 +21,11 @@ const ImmoplusLayout = () => {
             </span>
             <span className="flex items-center gap-1">
               <Phone className="h-3.5 w-3.5" />
-              (+237) 675 926 263
+              (+237) 675 926 263 / 698 120 450 / 677 205 314
             </span>
             <span className="flex items-center gap-1">
               <MapPin className="h-3.5 w-3.5" />
-              Douala, Yaoundé, Kribi
+              Douala • Yaoundé • Kribi
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -66,7 +65,7 @@ const ImmoplusLayout = () => {
           <Link to="/" className="flex items-center gap-3">
             <img
               src="https://res.cloudinary.com/diuvvyatm/image/upload/v1760258045/logo-immoplus-color_oz24wx.svg"
-              alt="Logo ImmoPlus"
+              alt="Logo IMMO-PLUS"
               className="h-12 w-auto"
             />
           </Link>
@@ -87,7 +86,7 @@ const ImmoplusLayout = () => {
             to="/contact"
             className="hidden items-center gap-2 rounded-full bg-[#8e1118] px-5 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-white transition hover:bg-[#c51c22] md:flex"
           >
-            Prenons rendez-vous
+            Contact
           </Link>
         </div>
         <div className="mx-auto block max-w-6xl px-4 pb-4 md:hidden">
@@ -116,7 +115,7 @@ const ImmoplusLayout = () => {
           <div className="flex items-center gap-4">
             <img
               src="https://res.cloudinary.com/diuvvyatm/image/upload/v1760258045/logo-immoplus-white_vaiawc.svg"
-              alt="Logo ImmoPlus blanc"
+              alt="Logo IMMO-PLUS blanc"
               className="h-10 w-auto"
             />
             <p className="text-xs uppercase tracking-[0.35em]">
@@ -128,14 +127,21 @@ const ImmoplusLayout = () => {
               href="mailto:immoplus@gmail.com"
               className="text-sm font-semibold uppercase tracking-[0.3em] text-white transition hover:text-[#f5c24b]"
             >
-              Nous écrire
+              Mail
+            </a>
+            <span className="hidden h-4 w-px bg-white/40 sm:block" />
+            <a
+              href="https://wa.me/237675926263"
+              className="text-sm font-semibold uppercase tracking-[0.3em] text-white transition hover:text-[#f5c24b]"
+            >
+              WhatsApp
             </a>
             <span className="hidden h-4 w-px bg-white/40 sm:block" />
             <a
               href="tel:+237675926263"
               className="text-sm font-semibold uppercase tracking-[0.3em] text-white transition hover:text-[#f5c24b]"
             >
-              Nous appeler
+              Contact
             </a>
           </div>
         </div>

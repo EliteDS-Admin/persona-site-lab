@@ -6,7 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ImmoplusLayout from "./pages/immoplus/ImmoplusLayout";
 import ImmoplusHome from "./pages/immoplus/ImmoplusHome";
 import ImmoplusAbout from "./pages/immoplus/ImmoplusAbout";
-import ImmoplusDestinations from "./pages/immoplus/ImmoplusDestinations";
+import ImmoplusProperties from "./pages/immoplus/ImmoplusProperties";
 import ImmoplusServices from "./pages/immoplus/ImmoplusServices";
 import ImmoplusContact from "./pages/immoplus/ImmoplusContact";
 import Index from "./pages/Index";
@@ -25,9 +25,9 @@ const App = () => (
         <Routes>
           <Route path="/" element={<ImmoplusLayout />}>
             <Route index element={<ImmoplusHome />} />
+            <Route path="nos-biens" element={<ImmoplusProperties />} />
+            <Route path="nos-services" element={<ImmoplusServices />} />
             <Route path="a-propos" element={<ImmoplusAbout />} />
-            <Route path="destinations" element={<ImmoplusDestinations />} />
-            <Route path="services" element={<ImmoplusServices />} />
             <Route path="contact" element={<ImmoplusContact />} />
           </Route>
           <Route path="/factory" element={<Index />} />

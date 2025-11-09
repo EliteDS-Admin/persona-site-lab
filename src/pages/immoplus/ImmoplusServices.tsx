@@ -1,35 +1,23 @@
-import { ClipboardCheck, Hammer, Home, Landmark, Sparkles } from "lucide-react";
+import { Building2, FileCheck2, Landmark } from "lucide-react";
 
 const services = [
   {
+    icon: Building2,
+    title: "Vente de terrain et de maison",
+    description:
+      "La vente des terrains et des maisons s'est donnée mission de décrire la liste des biens disponibles, leurs caractéristiques, leurs atouts et bien entendu le prix. IMMO-PLUS vous accompagne tout au long du processus de prospection jusqu'à la signature définitive chez le notaire.",
+  },
+  {
     icon: Landmark,
-    title: "Études foncières",
+    title: "Accompagnement pour crédit bancaire/immobilier",
     description:
-      "Analyse juridique complète, vérification des titres et accompagnement administratif pour sécuriser vos acquisitions.",
+      "Pour accorder un prêt immobilier par une institution bancaire, plusieurs conditions sont nécessaires, IMMO-PLUS vous accompagne pour l'élaboration des documents administratifs et justificatifs.",
   },
   {
-    icon: ClipboardCheck,
-    title: "Montage de projets",
+    icon: FileCheck2,
+    title: "Accompagnement pour obtention des documents fonciers",
     description:
-      "Business plan, simulations financières et recherche de partenaires pour donner vie à vos ambitions immobilières.",
-  },
-  {
-    icon: Hammer,
-    title: "Construction sur mesure",
-    description:
-      "Coordination des travaux, sélection des artisans et suivi de chantier pour des livraisons respectant vos exigences.",
-  },
-  {
-    icon: Home,
-    title: "Programmes clés en main",
-    description:
-      "Lotissements viabilisés, villas et immeubles prêts à habiter pour investir en toute sérénité.",
-  },
-  {
-    icon: Sparkles,
-    title: "Valorisation patrimoniale",
-    description:
-      "Stratégies locatives, gestion quotidienne et services premium pour optimiser vos revenus et votre image.",
+      "La valorisation d'un bien foncier passe par l'obtention et la sécurisation des documents administratifs. IMMO-PLUS se charge de suivre pour vous les démarches auprès des services cadastraux, notariaux et financiers (Cadastre, conservation foncière, impôts et domaines, ANOR et autres administrations (MINDAF)).",
   },
 ];
 
@@ -37,32 +25,29 @@ const ImmoplusServices = () => {
   return (
     <div className="mx-auto max-w-6xl space-y-14 px-4">
       <section className="rounded-[40px] bg-white p-8 shadow-sm">
-        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118]">Accompagnement global</p>
+        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118]">Nos services</p>
         <h1 className="mt-3 text-3xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">
-          Des solutions sur mesure pour chaque projet
+          Un accompagnement complet à chaque étape
         </h1>
         <p className="mt-4 text-sm leading-relaxed text-gray-700">
-          Qu'il s'agisse de trouver un terrain, de bâtir un programme résidentiel ou de valoriser vos actifs, IMMO-PLUS propose
-          un parcours clair, agile et humain. Nos experts pilotent chaque étape avec rigueur pour garantir des livraisons sans
-          surprise.
+          IMMO-PLUS mobilise ses équipes juridiques, techniques et commerciales pour sécuriser vos acquisitions, optimiser vos financements et garantir la livraison des documents fonciers.
         </p>
       </section>
 
-      <section className="grid gap-6 sm:grid-cols-2">
+      <section className="grid gap-6 lg:grid-cols-3">
         {services.map((service) => (
-          <article key={service.title} className="rounded-3xl bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
-            <service.icon className="h-8 w-8 text-[#8e1118]" />
-            <h2 className="mt-4 text-lg font-semibold text-[#8e1118]">{service.title}</h2>
-            <p className="mt-3 text-sm leading-relaxed text-gray-700">{service.description}</p>
+          <article key={service.title} className="flex h-full flex-col gap-4 rounded-3xl bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
+            <service.icon className="h-10 w-10 text-[#8e1118]" />
+            <h2 className="text-lg font-semibold text-[#8e1118]">{service.title}</h2>
+            <p className="text-sm leading-relaxed text-gray-700">{service.description}</p>
           </article>
         ))}
       </section>
 
       <section className="rounded-[32px] bg-[#8e1118] p-8 text-white">
-        <h2 className="text-2xl font-extrabold uppercase tracking-[0.25em]">Un interlocuteur unique</h2>
+        <h2 className="text-2xl font-extrabold uppercase tracking-[0.25em]">Votre projet mérite un suivi personnalisé</h2>
         <p className="mt-3 text-sm leading-relaxed text-white/85">
-          Nous coordonnons les architectes, urbanistes, juristes, banquiers et artisans pour que vous disposiez d'un point de
-          contact unique. Notre méthodologie garantit des décisions rapides, des budgets maîtrisés et une expérience fluide.
+          De la sélection du site à la remise des clés, un conseiller IMMO-PLUS reste votre interlocuteur privilégié pour orchestrer les rencontres avec les banques, les notaires et les administrations.
         </p>
       </section>
     </div>

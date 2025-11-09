@@ -1,212 +1,184 @@
-import { ArrowRight, ArrowUpRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { ArrowRight, PlayCircle, Sparkles } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
 
-const heroHighlights = [
+const statements = [
   {
-    value: "+1000",
-    label: "Familles accompagnées",
+    key: "slogan",
+    title: "Slogan",
+    text: "Le boulanger de l'immobilier",
   },
   {
-    value: "25",
-    label: "Lots disponibles cette année",
+    key: "message",
+    title: "Message",
+    text: "Réalisons ensemble votre rêve de devenir propriétaire en toute confiance.",
   },
   {
-    value: "3",
-    label: "Villes stratégiques",
+    key: "mission",
+    title: "Mission",
+    text: "Offrir des solutions foncières viabilisées et sécurisées accessibles à toutes les familles camerounaises.",
+  },
+  {
+    key: "volonte",
+    title: "Volonté",
+    text: "Rester à vos côtés de la prospection à la remise des clés grâce à une équipe engagée et disponible.",
   },
 ];
 
-const cityCards = [
+const highlights = [
   {
-    name: "Douala",
-    description: "Le dynamisme économique du Littoral pour bâtir votre patrimoine.",
-    image: "https://res.cloudinary.com/diuvvyatm/image/upload/v1760259485/Douala_webk2k.png",
+    title: "Terrains sécurisés",
+    description: "Des hectares maîtrisés à Douala, Yaoundé et Kribi avec titres fonciers disponibles.",
   },
   {
-    name: "Yaoundé",
-    description: "La capitale politique, des opportunités stables et durables.",
-    image: "https://res.cloudinary.com/diuvvyatm/image/upload/v1760259491/Yaound%C3%A9_d3km96.png",
+    title: "Accompagnement sur mesure",
+    description: "Conseils administratifs, juridiques et financiers pour concrétiser chaque dossier.",
   },
   {
-    name: "Kribi",
-    description: "Le littoral en pleine expansion pour une qualité de vie d'exception.",
-    image: "https://res.cloudinary.com/diuvvyatm/image/upload/v1760259485/Kribi_dmkadf.png",
-  },
-];
-
-const serviceHighlights = [
-  {
-    title: "Prospection & sécurisation",
-    description:
-      "Nous identifions des terrains titrés, viabilisés et conformes aux exigences administratives pour votre sérénité.",
-  },
-  {
-    title: "Aménagement & construction",
-    description:
-      "IMMO-PLUS coordonne les travaux, suit les chantiers et délivre des clés prêtes à l'emploi selon vos attentes.",
-  },
-  {
-    title: "Financement & gestion",
-    description:
-      "De la recherche de partenaires financiers à la valorisation locative, nous optimisons chaque étape de votre projet.",
+    title: "Solutions clé en main",
+    description: "Des gammes d'habitations livrées prêtes à habiter avec possibilité d'extension.",
   },
 ];
 
 const ImmoplusHome = () => {
+  const [activeKey, setActiveKey] = useState(statements[0].key);
+  const navigate = useNavigate();
+
+  const activeStatement = statements.find((item) => item.key === activeKey) ?? statements[0];
+
   return (
     <div className="space-y-20">
       <section className="relative overflow-hidden rounded-b-[56px] bg-black text-white">
-        <div className="absolute inset-0">
-          <img
-            src="https://res.cloudinary.com/diuvvyatm/image/upload/v1760259484/Famille_akge15.png"
-            alt="Famille heureuse devant sa nouvelle maison"
-            className="h-full w-full object-cover"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#8e1118]/80 via-[#8e1118]/30 to-transparent" />
-        </div>
-
-        <div className="relative mx-auto flex max-w-6xl flex-col gap-10 px-4 pb-24 pt-28 lg:flex-row lg:items-center lg:gap-16">
-          <div className="max-w-xl space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-5 py-2 text-xs uppercase tracking-[0.4em]">
-              <span>IMMO-PLUS</span>
-              <span className="text-white/70">Depuis 2010</span>
-            </div>
-            <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl">
-              Le boulanger de l'immobilier : votre projet, notre savoir-faire
-            </h1>
-            <p className="text-base text-white/85">
-              Vos ambitions deviennent réalité avec un accompagnement humain, transparent et sécurisé. Ensemble, construisons
-              un patrimoine durable pour votre famille au Cameroun.
-            </p>
-            <div className="flex flex-wrap items-center gap-4">
-              <Link
-                to="/contact"
-                className="flex items-center gap-2 rounded-full bg-white px-6 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118] shadow-lg transition hover:bg-[#f3e8e7]"
-              >
-                Nous contacter
-                <ArrowRight className="h-3.5 w-3.5" />
-              </Link>
-              <Link
-                to="/destinations"
-                className="flex items-center gap-2 rounded-full border border-white/70 px-6 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-white transition hover:bg-white/10"
-              >
-                Découvrir nos villes
-                <ArrowUpRight className="h-3.5 w-3.5" />
-              </Link>
-            </div>
-          </div>
-
-          <div className="grid w-full max-w-md gap-3 rounded-3xl bg-white/12 p-6 backdrop-blur">
-            {heroHighlights.map((item) => (
-              <div
-                key={item.label}
-                className="rounded-2xl bg-white/10 px-5 py-4 text-left shadow-sm"
-              >
-                <p className="text-2xl font-extrabold uppercase tracking-[0.4em] text-white">
-                  {item.value}
-                </p>
-                <p className="mt-1 text-sm text-white/80">{item.label}</p>
+        <img
+          src="https://res.cloudinary.com/diuvvyatm/image/upload/v1760259484/Famille_akge15.png"
+          alt="Famille souriante devant sa nouvelle maison"
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-black/10" />
+        <div className="absolute inset-0 flex items-center">
+          <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-24 lg:flex-row lg:items-center">
+            <div className="space-y-6 lg:max-w-xl">
+              <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-5 py-2 text-xs uppercase tracking-[0.4em]">
+                <span>IMMO-PLUS</span>
+                <span className="text-white/70">Depuis 2010</span>
               </div>
-            ))}
+              <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl">
+                L'immobilier camerounais accessible, sécurisé et durable
+              </h1>
+              <p className="text-base text-white/90">
+                IMMO-PLUS conçoit et livre des espaces de vie où chaque détail compte. Notre équipe se mobilise pour vous proposer
+                des terrains lotis, des maisons prêtes à habiter et un accompagnement administratif complet.
+              </p>
+              <div className="flex flex-wrap items-center gap-4">
+                <Link
+                  to="/nos-biens"
+                  className="flex items-center gap-2 rounded-full bg-[#f5c24b] px-6 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118] shadow-lg transition hover:bg-white"
+                >
+                  Découvrir nos biens
+                  <ArrowRight className="h-3.5 w-3.5" />
+                </Link>
+                <button
+                  type="button"
+                  onClick={() => navigate("/nos-services")}
+                  className="flex items-center gap-2 rounded-full border border-white/70 px-6 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-white transition hover:bg-white/10"
+                >
+                  Nos services
+                  <PlayCircle className="h-4 w-4" />
+                </button>
+              </div>
+            </div>
+            <div className="w-full max-w-md space-y-5 rounded-3xl bg-white/10 p-6 backdrop-blur">
+              <p className="text-xs font-semibold uppercase tracking-[0.35em] text-white/70">
+                Slogan, message, mission & volonté
+              </p>
+              <div className="grid grid-cols-2 gap-2">
+                {statements.map((item) => (
+                  <button
+                    key={item.key}
+                    type="button"
+                    onClick={() => setActiveKey(item.key)}
+                    className={`rounded-2xl border px-4 py-3 text-xs font-semibold uppercase tracking-[0.25em] transition ${
+                      activeKey === item.key
+                        ? "border-[#f5c24b] bg-[#f5c24b] text-[#8e1118]"
+                        : "border-white/25 bg-white/5 text-white/80 hover:bg-white/15"
+                    }`}
+                  >
+                    {item.title}
+                  </button>
+                ))}
+              </div>
+              <div className="rounded-3xl bg-black/50 p-5 text-left shadow-inner">
+                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-[#f5c24b]">{activeStatement.title}</p>
+                <p className="mt-3 text-base leading-relaxed text-white">{activeStatement.text}</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <section className="mx-auto flex max-w-6xl flex-col gap-10 px-4 lg:flex-row lg:items-center">
-        <div className="space-y-5 lg:max-w-xl">
-          <h2 className="text-3xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">Qui sommes-nous ?</h2>
-          <p className="text-sm leading-relaxed text-gray-700">
-            IMMO-PLUS, c'est une équipe d'experts passionnés par l'immobilier camerounais. Présents à Douala, Yaoundé et Kribi,
-            nous sécurisons chaque étape de votre investissement : recherche foncière, études techniques, montage juridique et
-            livraison clé en main.
-          </p>
-          <p className="text-sm leading-relaxed text-gray-700">
-            Notre promesse : faire grandir votre patrimoine avec la même attention qu'un artisan pour sa plus belle création.
-            Transparence, proximité et résultats durables guident toutes nos actions.
-          </p>
-          <Link
-            to="/a-propos"
-            className="inline-flex items-center gap-2 rounded-full bg-[#8e1118] px-6 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-white transition hover:bg-[#c51c22]"
-          >
-            En savoir plus
-            <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-        </div>
-        <div className="grid flex-1 gap-4 sm:grid-cols-2">
-          {serviceHighlights.map((service) => (
-            <div key={service.title} className="rounded-3xl border border-[#e8d6d2] bg-white/80 p-6 shadow-sm backdrop-blur">
-              <h3 className="text-lg font-semibold text-[#8e1118]">{service.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-gray-700">{service.description}</p>
-            </div>
-          ))}
+      <section className="mx-auto max-w-6xl px-4">
+        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
+          <div className="space-y-6">
+            <h2 className="text-3xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">Pourquoi IMMO-PLUS ?</h2>
+            <p className="text-sm leading-relaxed text-gray-700">
+              Implantée dans les villes de Douala, Yaoundé et Kribi, IMMO-PLUS met à profit la connaissance du terrain pour
+              sécuriser chaque acquisition. Notre priorité : garantir à nos clients des investissements transparents, viables et
+              adaptés à leurs ambitions familiales ou professionnelles.
+            </p>
+            <Link
+              to="/a-propos"
+              className="inline-flex items-center gap-2 rounded-full bg-[#8e1118] px-6 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-white transition hover:bg-[#c51c22]"
+            >
+              À propos de nous
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-2">
+            {highlights.map((highlight) => (
+              <article key={highlight.title} className="rounded-3xl border border-[#eadad6] bg-white/80 p-6 shadow-sm">
+                <Sparkles className="h-6 w-6 text-[#8e1118]" />
+                <h3 className="mt-3 text-lg font-semibold text-[#8e1118]">{highlight.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-gray-700">{highlight.description}</p>
+              </article>
+            ))}
+          </div>
         </div>
       </section>
 
       <section className="bg-[#f5c24b] py-16">
         <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 lg:flex-row lg:items-center">
           <div className="flex-1 space-y-4 text-[#8e1118]">
-            <h2 className="text-3xl font-extrabold uppercase tracking-[0.25em]">Nos engagements</h2>
+            <h2 className="text-3xl font-extrabold uppercase tracking-[0.25em]">Nos engagements prioritaires</h2>
             <p className="text-sm leading-relaxed">
-              Des hectares de terrains maîtrisés, des lots livrés dans les délais et un réseau d'agences locales pour un suivi
-              rapproché. IMMO-PLUS transforme vos projets immobiliers en réussites concrètes.
+              Transparence, proximité et respect des délais guident chacune de nos opérations. Chaque projet est suivi par une
+              équipe pluridisciplinaire qui veille au respect des normes administratives et techniques.
             </p>
           </div>
           <div className="grid flex-1 gap-4 sm:grid-cols-3">
-            {heroHighlights.map((item) => (
-              <div key={item.label} className="rounded-3xl bg-white p-6 text-center shadow-lg">
-                <p className="text-3xl font-extrabold text-[#8e1118]">{item.value}</p>
-                <p className="mt-2 text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118]/70">
-                  {item.label}
-                </p>
+            {statements.slice(0, 3).map((item) => (
+              <div key={item.key} className="rounded-3xl bg-white p-6 text-center shadow-lg">
+                <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118]/70">{item.title}</p>
+                <p className="mt-3 text-sm text-[#8e1118]">{item.text}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mx-auto max-w-6xl px-4">
-        <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-end">
-          <div>
-            <h2 className="text-3xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">Villes phares</h2>
-            <p className="mt-2 max-w-2xl text-sm leading-relaxed text-gray-700">
-              Trois destinations complémentaires pour vous implanter au cœur des dynamiques économiques, politiques et
-              touristiques du Cameroun.
-            </p>
-          </div>
-          <Link
-            to="/destinations"
-            className="inline-flex items-center gap-2 rounded-full border border-[#8e1118] px-6 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118] transition hover:bg-[#8e1118] hover:text-white"
-          >
-            Explorer nos terrains
-            <ArrowUpRight className="h-3.5 w-3.5" />
-          </Link>
-        </div>
-        <div className="mt-8 grid gap-6 sm:grid-cols-3">
-          {cityCards.map((city) => (
-            <article key={city.name} className="group relative overflow-hidden rounded-3xl shadow-lg">
-              <img src={city.image} alt={city.name} className="h-56 w-full object-cover transition duration-500 group-hover:scale-105" />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 p-5 text-white">
-                <h3 className="text-lg font-semibold uppercase tracking-[0.35em]">{city.name}</h3>
-                <p className="mt-2 text-sm text-white/85">{city.description}</p>
-              </div>
-            </article>
-          ))}
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-6xl rounded-[40px] bg-[#8e1118] px-6 py-14 text-white lg:px-12">
+      <section className="mx-auto max-w-6xl rounded-[40px] bg-white px-6 py-14 shadow-sm lg:px-12">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="space-y-4 lg:max-w-2xl">
-            <h2 className="text-3xl font-extrabold uppercase tracking-[0.25em]">Parlons de votre prochain projet</h2>
-            <p className="text-sm leading-relaxed text-white/85">
-              Besoin d'un terrain, d'un lotissement ou d'un accompagnement clé en main ? Notre équipe est disponible pour vous
-              conseiller et vous présenter nos opportunités du moment.
+            <h2 className="text-3xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">
+              Prêts à concrétiser votre projet ?
+            </h2>
+            <p className="text-sm leading-relaxed text-gray-700">
+              Notre équipe commerciale vous présente les opportunités disponibles et vous accompagne pour les visites, la
+              constitution des dossiers et les démarches notariales.
             </p>
           </div>
           <Link
             to="/contact"
-            className="inline-flex items-center gap-2 rounded-full bg-white px-7 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118] transition hover:bg-[#f3e8e7]"
+            className="inline-flex items-center gap-2 rounded-full bg-[#8e1118] px-7 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-white transition hover:bg-[#c51c22]"
           >
             Prendre rendez-vous
             <ArrowRight className="h-3.5 w-3.5" />
