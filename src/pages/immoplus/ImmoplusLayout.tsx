@@ -13,19 +13,19 @@ const navLinks = [
 const ImmoplusLayout = () => {
   return (
     <div className="min-h-screen bg-[#f8f5f0] font-sans text-gray-900">
-      <div className="bg-[#8e1118] text-xs text-white">
-        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-2">
-          <div className="flex flex-wrap items-center gap-4">
-            <span className="flex items-center gap-1">
-              <Mail className="h-3.5 w-3.5" />
+      <div className="bg-[#8e1118] text-[0.68rem] text-white sm:text-xs">
+        <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-x-4 gap-y-2 px-4 py-1.5 sm:py-2">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1 leading-tight">
+            <span className="flex items-center gap-1.5">
+              <Mail className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
               immoplus@gmail.com
             </span>
-            <span className="flex items-center gap-1">
-              <Phone className="h-3.5 w-3.5" />
+            <span className="flex items-center gap-1.5">
+              <Phone className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
               (+237) 675 92 62 63 / 698 120 450 / 677 205 314
             </span>
-            <span className="flex items-center gap-1">
-              <MapPin className="h-3.5 w-3.5" />
+            <span className="flex items-center gap-1.5">
+              <MapPin className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
               Douala • Yaoundé • Kribi
             </span>
           </div>
@@ -34,7 +34,7 @@ const ImmoplusLayout = () => {
               href="https://www.facebook.com"
               target="_blank"
               rel="noreferrer"
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1877F2] text-white transition hover:brightness-110"
+              className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1877F2] text-white transition hover:brightness-110 sm:h-8 sm:w-8"
               aria-label="Facebook IMMO-PLUS"
             >
               <Facebook className="h-4 w-4" />
@@ -43,7 +43,7 @@ const ImmoplusLayout = () => {
               href="https://www.linkedin.com"
               target="_blank"
               rel="noreferrer"
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0A66C2] text-white transition hover:brightness-110"
+              className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0A66C2] text-white transition hover:brightness-110 sm:h-8 sm:w-8"
               aria-label="LinkedIn IMMO-PLUS"
             >
               <Linkedin className="h-4 w-4" />
@@ -52,7 +52,7 @@ const ImmoplusLayout = () => {
               href={WHATSAPP_URL}
               target="_blank"
               rel="noreferrer"
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-[#25D366] text-white transition hover:brightness-110"
+              className="flex h-7 w-7 items-center justify-center rounded-full bg-[#25D366] text-white transition hover:brightness-110 sm:h-8 sm:w-8"
               aria-label="WhatsApp IMMO-PLUS"
             >
               <WhatsappIcon className="h-4 w-4" />

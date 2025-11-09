@@ -39,7 +39,7 @@ const ImmoplusContact = () => {
               <p className="flex items-center gap-2">
                 <WhatsappIcon className="h-4 w-4 text-[#8e1118]" />
                 <a href={WHATSAPP_URL} className="hover:underline" target="_blank" rel="noreferrer">
-                  +237 675 92 62 63
+                  +237 677 205 314
                 </a>
               </p>
               <p className="flex items-center gap-2">

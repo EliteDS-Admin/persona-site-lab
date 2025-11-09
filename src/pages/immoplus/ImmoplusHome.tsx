@@ -52,15 +52,15 @@ const ImmoplusHome = () => {
 
   return (
     <div className="space-y-20">
-      <section className="relative overflow-hidden rounded-b-[56px] bg-black text-white">
+      <section className="relative isolate overflow-hidden rounded-b-[56px] bg-black text-white sm:min-h-[600px] lg:min-h-[680px]">
         <img
           src="https://res.cloudinary.com/diuvvyatm/image/upload/v1760259484/Famille_akge15.png"
           alt="Famille souriante devant sa nouvelle maison"
-          className="h-full w-full object-cover"
+          className="absolute inset-0 h-full w-full object-cover object-[center_top] sm:object-center"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/40 to-black/10" />
-        <div className="absolute inset-0 flex items-center">
-          <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-24 lg:flex-row lg:items-center">
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-black/10" />
+        <div className="relative z-10 flex min-h-[520px] items-center">
+          <div className="mx-auto flex w-full max-w-6xl flex-col gap-10 px-4 py-16 sm:py-20 lg:flex-row lg:items-center lg:py-24">
             <div className="space-y-6 lg:max-w-xl">
               <div className="inline-flex items-center gap-2 rounded-full bg-white/15 px-5 py-2 text-xs uppercase tracking-[0.4em]">
                 <span>IMMO-PLUS</span>
