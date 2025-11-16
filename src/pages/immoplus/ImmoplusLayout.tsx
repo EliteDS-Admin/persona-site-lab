@@ -149,6 +149,18 @@ const ImmoplusLayout = () => {
               Contact
             </a>
           </div>
+          <p className="text-xs text-white/80">
+            Pensé et réalisé par{" "}
+            <a
+              href="https://micheltegofack.com"
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold text-white transition hover:text-[#f5c24b]"
+            >
+              TEGOFACK CORP
+            </a>
+            .
+          </p>
         </div>
       </footer>
     </div>

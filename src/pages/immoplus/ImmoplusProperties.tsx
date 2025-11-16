@@ -27,6 +27,21 @@ const cities = [
 
 const ranges = [
   {
+    name: "Gamme M",
+    image: "",
+    features: [
+      "Type : Maison modulaire",
+      "Construction : Maçonnerie en blocs de ciment / béton armé",
+      "Toiture : Tôle aluminium",
+      "Superficie terrain : 100 à 300 m²",
+      "Surface bâtie finale : ≈ 90 à 120 m²",
+      "Nombre de chambres prévu : 1 à 3",
+      "Matériaux : Locaux et durables",
+      "Évolutivité : Construction par étapes, selon budget du propriétaire",
+      "Coût du m² à Douala : 100 000 à 300 000 FCFA",
+    ],
+  },
+  {
     name: "Gamme L",
     image: "https://res.cloudinary.com/diuvvyatm/image/upload/v1762700156/Gamme_L_t5cotd.jpg",
     features: [
@@ -71,6 +86,32 @@ const ranges = [
       "Aménagement extérieur : Un Parking de 02 Voitures",
       "Aménagement extérieur : Un espace aménagé pouvant accueillir une Piscine aux dimensions standards",
       "Aménagement extérieur : Une large cour avant et arrière pouvant être aménagée et accueillir un barbecue ou une Mini réception.",
+    ],
+  },
+];
+
+const terrainGallery = [
+  {
+    city: "Douala",
+    images: [
+      "https://res.cloudinary.com/diuvvyatm/image/upload/v1763288131/Dla1_cfkce7.jpg",
+      "https://res.cloudinary.com/diuvvyatm/image/upload/v1763288133/Dla2_ctmskp.jpg",
+    ],
+  },
+  {
+    city: "Yaoundé",
+    images: [
+      "https://res.cloudinary.com/diuvvyatm/image/upload/v1763288130/Yd%C3%A91_zae35i.jpg",
+      "https://res.cloudinary.com/diuvvyatm/image/upload/v1763288134/Yd%C3%A92_gk9mmy.jpg",
+      "https://res.cloudinary.com/diuvvyatm/image/upload/v1763288133/Yd%C3%A93_ch3nhg.jpg",
+      "https://res.cloudinary.com/diuvvyatm/image/upload/v1763288132/Yd%C3%A94_b4mjxx.jpg",
+    ],
+  },
+  {
+    city: "Kribi",
+    images: [
+      "https://res.cloudinary.com/diuvvyatm/image/upload/v1763288130/Kr1_jfh93s.jpg",
+      "https://res.cloudinary.com/diuvvyatm/image/upload/v1763288133/Kr2_ptiujo.jpg",
     ],
   },
 ];
@@ -122,12 +163,46 @@ const ImmoplusProperties = () => {
         ))}
       </section>
 
+      <section className="space-y-6">
+        <div className="space-y-2">
+          <h2 className="text-2xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">
+            Terrains vierges disponibles
+          </h2>
+          <p className="text-sm leading-relaxed text-gray-700">
+            Aperçu des terrains prêts à bâtir dans chaque ville, idéaux pour concrétiser votre projet immobilier.
+          </p>
+        </div>
+        <div className="grid gap-6">
+          {terrainGallery.map((group) => (
+            <div key={group.city} className="space-y-3 rounded-[28px] bg-white p-6 shadow-sm">
+              <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.3em] text-[#8e1118]">
+                <MapPin className="h-4 w-4" />
+                {group.city}
+              </div>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+                {group.images.map((image) => (
+                  <div key={image} className="overflow-hidden rounded-2xl border border-[#eadad6] bg-white">
+                    <img src={image} alt={`${group.city} terrain`} className="h-48 w-full object-cover" />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
       <section className="space-y-10">
         <h2 className="text-3xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">Nos gammes d'habitations</h2>
         <div className="grid gap-6 lg:grid-cols-3">
           {ranges.map((range) => (
             <article key={range.name} className="flex h-full flex-col overflow-hidden rounded-[32px] border border-[#eadad6] bg-white shadow-sm">
-              <img src={range.image} alt={range.name} className="h-48 w-full object-cover" />
+              {range.image ? (
+                <img src={range.image} alt={range.name} className="h-48 w-full object-cover" />
+              ) : (
+                <div className="flex h-48 w-full items-center justify-center bg-[#f3e8e7] text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118]">
+                  Visuel en préparation
+                </div>
+              )}
               <div className="flex flex-1 flex-col gap-4 p-6">
                 <h3 className="text-lg font-semibold uppercase tracking-[0.3em] text-[#8e1118]">{range.name}</h3>
                 <ul className="space-y-2 text-sm leading-relaxed text-gray-700">
