@@ -122,7 +122,7 @@ const ImmoplusProperties = () => {
       <section className="rounded-[40px] bg-white p-8 shadow-sm">
         <div className="space-y-4">
           <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118]">Nos biens</p>
-          <h1 className="text-3xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">
+          <h1 className="text-3xl font-extrabold uppercase leading-tight tracking-[0.08em] text-[#8e1118] sm:tracking-[0.25em]">
             Des opportunités immobilières dans trois villes stratégiques
           </h1>
           <p className="text-sm leading-relaxed text-gray-700">
@@ -151,7 +151,7 @@ const ImmoplusProperties = () => {
               <button
                 type="button"
                 onClick={() => setActiveCity(city)}
-                className="inline-flex w-max items-center gap-2 rounded-full bg-[#8e1118] px-6 py-3 text-xs font-semibold uppercase tracking-[0.35em] text-white transition hover:bg-[#c51c22]"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-[#8e1118] px-6 py-3 text-xs font-semibold uppercase tracking-[0.25em] text-white transition hover:bg-[#c51c22] sm:w-max sm:tracking-[0.35em]"
               >
                 Voir la vidéo
                 <PlayCircle className="h-4 w-4" />
@@ -163,7 +163,7 @@ const ImmoplusProperties = () => {
 
       <section className="space-y-6">
         <div className="space-y-2">
-          <h2 className="text-2xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">
+          <h2 className="text-2xl font-extrabold uppercase leading-tight tracking-[0.08em] text-[#8e1118] sm:tracking-[0.25em]">
             Terrains vierges disponibles
           </h2>
           <p className="text-sm leading-relaxed text-gray-700">
@@ -203,13 +203,17 @@ const ImmoplusProperties = () => {
       </section>
 
       <section className="space-y-10">
-        <h2 className="text-3xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">Nos gammes d'habitations</h2>
+        <h2 className="text-3xl font-extrabold uppercase leading-tight tracking-[0.08em] text-[#8e1118] sm:tracking-[0.25em]">
+          Nos gammes d'habitations
+        </h2>
         <div className="grid gap-6 lg:grid-cols-3">
           {ranges.map((range) => (
             <article key={range.name} className="flex h-full flex-col overflow-hidden rounded-[32px] border border-[#eadad6] bg-white shadow-sm">
               <img src={range.image} alt={range.name} className="h-48 w-full object-cover" />
               <div className="flex flex-1 flex-col gap-4 p-6">
-                <h3 className="text-lg font-semibold uppercase tracking-[0.3em] text-[#8e1118]">{range.name}</h3>
+                <h3 className="text-lg font-semibold uppercase tracking-[0.15em] text-[#8e1118] sm:tracking-[0.3em]">
+                  {range.name}
+                </h3>
                 <ul className="space-y-2 text-sm leading-relaxed text-gray-700">
                   {range.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-2">
