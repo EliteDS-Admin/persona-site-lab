@@ -26,22 +26,49 @@ const ImmoplusAbout = () => {
         <h1 className="text-3xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">
           Présentation de l'entreprise
         </h1>
-        <p className="text-sm leading-relaxed text-gray-700">
-          Le principal porteur de projet est la SCI ImmoPlus reconnu représenté par Mr TANKO Eli, son directeur général. La SCI IMMO-PLUS est une structure en développement depuis une quinzaine d’années avec à sa tête le porteur de projet en la personne de Mr TANKO Eli.
-        </p>
-        <p className="text-sm leading-relaxed text-gray-700">
-          À ses débuts ImmoPlus a été pensé pour la mise en œuvre des maisons évolutives et modulaires dans différente ville du Cameroun avec un concept qui adaptait le style de maison au portefeuille du propriétaire. Le concept était basé sur un plan modulable et une construction évolutive tout ceci en fonction du revenu du client final avec pour objectif principal de permettre à ce dernier d’être propriétaire d’un terrain et de vivre dans un module de sa facture (maison) le temps de le finaliser.
-        </p>
-        <p className="text-sm leading-relaxed text-gray-700">
-          C’est ce qui donne cette connotation de maison évolutive, c’est-à-dire construire au fur et à mesure des revenus disponibles du propriétaire ou client final. La SCI ImmoPlus par son étude et son observation met sur pied un accompagnement pour crédit bancaire / immobilière pour des personnes en difficulté et à revenu moyen, il offre aussi ses expertises et services pour un accompagnement pour l’obtention des documents fonciers.
-        </p>
-      </section>
-
-      <section className="rounded-[40px] bg-white p-8 shadow-sm">
-        <h2 className="text-2xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">Un leadership expérimenté</h2>
-        <p className="mt-4 text-sm leading-relaxed text-gray-700">
-          Le Directeur général, Mr TANKO Eli du haut de ses 30 ans d’expérience dans la conduite des chantiers de bâtiment et travaux publics, il est titulaire d’un baccalauréat F4 (Génie Civile) et un DESS (Bac+5) en gestion et innovation ; Dans le cadre du BTP, il est spécialisé en économie du bâtiment, ayant dans son CV plusieurs expériences de gestion et d’animation des grands chantiers.
-        </p>
+        <div className="space-y-4 text-sm leading-relaxed text-gray-700">
+          <p>
+            Immo-plus est une composition de deux mots ; Immo qui est un diminutif de immobilier, immobilier qui représente la
+            terre, le terrain, mais également la maison. Le deuxième mot PLUS, pour cette particularité sur la maison évolutive,
+            concept prôné par la structure. Quand on regarde dans le passé, on parlait de hutte, de cabanes, d’abris pour se
+            sophistiquées ; la particularité du PLUS nous ramène à cette évolution du bâti qui en réalité à la base symbolisait
+            uniquement le cocon familial. De nos jours ce plus dans notre structure est le fait de cette innovation conceptuelle que
+            nous avons de permettre d’une manière évolutive aux client finaux d’avoir accès à la propriété en passant par l’accès au
+            terrain, au foncier, l’accès à un crédit dans la mesure du possible, la collaboration et la coproduction avec l’entreprise
+            dans la construction de son abri ou de sa maison.
+          </p>
+          <p>
+            Le logo d’Immo-plus reprend les deux mots Immo et Plus . Le O d’Immo est une composition de deux mains qui forment un
+            cercle chapeauté par une toiture en dessous. A l’intérieur de ce O, on a en filigrane une famille, ce qui exprime le O du
+            Nid, de l’unité, du cocon familial, de la protection de la famille. Une feuille de plante qui définit la croissance. Tout
+            ceci arboré de deux couleurs phares à savoir le rouge bordeaux (toiture en argile cuite) et l’orange doux (mur de terre
+            stabilisé).
+          </p>
+          <p>
+            En réalité ces deux couleurs sont des résultantes d’une grande expérience de partage avec les entreprise et artisans
+            fabriquant de tuiles canal en Gironde (Bordeaux France). Ces divers artisans et entreprises sont spécialisés dans la
+            fabrication des éléments de couvertures en argile cuite, d’où la couleur du marron ou de l’orange en fonction de la
+            cuisson de ces dits éléments.
+          </p>
+          <p>
+            Le principal porteur de projet est la SCI ImmoPlus reconnu représenté par Mr TANKO Eli, son directeur général. La SCI
+            IMMO-PLUS est une structure en développement depuis une quinzaine d’années avec à sa tête le porteur de projet en la
+            personne de Mr TANKO Eli. A ses débuts ImmoPlus a été pensé pour la mise en œuvre des maisons évolutives et modulaires
+            dans différente ville du Cameroun avec un concept qui adaptait le style de maison au portefeuille du propriétaire. Le
+            concept était basé sur un plan modulable et une construction évolutive tout ceci en fonction du revenu du client final
+            avec pour objectif principal de permettre à ce dernier d’être propriétaire d’un terrain et de vivre dans un module de sa
+            facture (maison) le temps de le finaliser. C’est ce qui donne cette connotation de maison évolutive, c’est -à -dire
+            construire au fur et à mesure des revenus disponibles du propriétaire ou client final. La SCI ImmoPlus pas son étude et
+            son observation met sur pied un accompagnement pour crédit bancaire / immobilière pour des personnes en difficulté et à
+            revenu moyen, il offre aussi ses expertises et services pour un accompagnement pour l’obtention des documents fonciers.
+          </p>
+          <p>
+            Le Directeur général, Mr TANKO Eli du haut de ses 30ans d’expérience dans la conduite des chantiers de bâtiment et
+            travaux publics, il est titulaire d’un baccalauréat F4 (Génie Civile) et un DESS (Bac+5) en gestion et innovation ; Dans
+            le cadre du BTP, il est spécialisé en économie du bâtiment, ayant dans son cv plusieurs expériences de gestion et
+            d’animation des grands chantiers.
+          </p>
+        </div>
       </section>
 
       <section className="grid gap-6 lg:grid-cols-2">
