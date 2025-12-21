@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MapPin, PlayCircle, X } from "lucide-react";
+import { getWhatsAppUrl } from "./constants";
 
 const cities = [
   {
@@ -28,7 +29,7 @@ const cities = [
 const ranges = [
   {
     name: "Gamme M",
-    image: "",
+    image: "https://res.cloudinary.com/diuvvyatm/image/upload/v1766307917/Gamme_M_fvramd.jpg",
     features: [
       "Type : Maison modulaire",
       "Construction : Maçonnerie en blocs de ciment / béton armé",
@@ -43,7 +44,7 @@ const ranges = [
   },
   {
     name: "Gamme L",
-    image: "https://res.cloudinary.com/diuvvyatm/image/upload/v1762700156/Gamme_L_t5cotd.jpg",
+    image: "https://res.cloudinary.com/diuvvyatm/image/upload/v1766307919/Gamme_L_sgoswu.jpg",
     features: [
       "D'un Salon Spacieux avec Salle à manger",
       "D'une Cuisine",
@@ -52,6 +53,7 @@ const ranges = [
       "À l'étage : D'une douche commune aux deux (03) chambres",
       "Aménagement extérieur : Un Parking de 02 Voitures (disponibilité en fonction des différent site)",
       "Aménagement extérieur : Une cour avant et arrière pouvant être aménagée et servir d'air de repos.",
+      "Coût du m² à Douala : 50 000 à 120 000 FCFA",
     ],
   },
   {
@@ -91,30 +93,20 @@ const ranges = [
 ];
 
 const terrainGallery = [
-  {
-    city: "Douala",
-    images: [
-      "https://res.cloudinary.com/diuvvyatm/image/upload/v1763288131/Dla1_cfkce7.jpg",
-      "https://res.cloudinary.com/diuvvyatm/image/upload/v1763288133/Dla2_ctmskp.jpg",
-    ],
-  },
-  {
-    city: "Yaoundé",
-    images: [
-      "https://res.cloudinary.com/diuvvyatm/image/upload/v1763288130/Yd%C3%A91_zae35i.jpg",
-      "https://res.cloudinary.com/diuvvyatm/image/upload/v1763288134/Yd%C3%A92_gk9mmy.jpg",
-      "https://res.cloudinary.com/diuvvyatm/image/upload/v1763288133/Yd%C3%A93_ch3nhg.jpg",
-      "https://res.cloudinary.com/diuvvyatm/image/upload/v1763288132/Yd%C3%A94_b4mjxx.jpg",
-    ],
-  },
-  {
-    city: "Kribi",
-    images: [
-      "https://res.cloudinary.com/diuvvyatm/image/upload/v1763288130/Kr1_jfh93s.jpg",
-      "https://res.cloudinary.com/diuvvyatm/image/upload/v1763288133/Kr2_ptiujo.jpg",
-    ],
-  },
+  "https://res.cloudinary.com/diuvvyatm/image/upload/v1766308823/WhatsApp_Image_2025-12-03_at_17.10.28_1_tzxu6t.jpg",
+  "https://res.cloudinary.com/diuvvyatm/image/upload/v1766308822/WhatsApp_Image_2025-12-03_at_17.10.27_ngdfl2.jpg",
+  "https://res.cloudinary.com/diuvvyatm/image/upload/v1766308825/WhatsApp_Image_2025-12-03_at_17.10.29_1_wue77m.jpg",
+  "https://res.cloudinary.com/diuvvyatm/image/upload/v1766308828/WhatsApp_Image_2025-12-03_at_17.10.28_rtjokq.jpg",
+  "https://res.cloudinary.com/diuvvyatm/image/upload/v1766308830/WhatsApp_Image_2025-12-03_at_17.10.27_1_ia0zta.jpg",
+  "https://res.cloudinary.com/diuvvyatm/image/upload/v1766308831/WhatsApp_Image_2025-12-03_at_17.10.29_cfelot.jpg",
+  "https://res.cloudinary.com/diuvvyatm/image/upload/v1766308834/WhatsApp_Image_2025-12-03_at_17.10.30_t6ntk3.jpg",
+  "https://res.cloudinary.com/diuvvyatm/image/upload/v1766308834/WhatsApp_Image_2025-12-03_at_17.10.30_1_hxct6j.jpg",
 ];
+
+const terrainItems = terrainGallery.map((image, index) => ({
+  id: index + 1,
+  image,
+}));
 
 const ImmoplusProperties = () => {
   const [activeCity, setActiveCity] = useState<typeof cities[number] | null>(null);
@@ -169,25 +161,38 @@ const ImmoplusProperties = () => {
             Terrains vierges disponibles
           </h2>
           <p className="text-sm leading-relaxed text-gray-700">
-            Aperçu des terrains prêts à bâtir dans chaque ville, idéaux pour concrétiser votre projet immobilier.
+            Nos terrains ont des superficies de 250m², 200m² et 125m²
           </p>
         </div>
-        <div className="grid gap-6">
-          {terrainGallery.map((group) => (
-            <div key={group.city} className="space-y-3 rounded-[28px] bg-white p-6 shadow-sm">
-              <div className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.3em] text-[#8e1118]">
-                <MapPin className="h-4 w-4" />
-                {group.city}
-              </div>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-                {group.images.map((image) => (
-                  <div key={image} className="overflow-hidden rounded-2xl border border-[#eadad6] bg-white">
-                    <img src={image} alt={`${group.city} terrain`} className="h-48 w-full object-cover" />
+        <div className="overflow-hidden rounded-[32px] border border-[#eadad6] bg-white shadow-sm">
+          <div className="flex w-max gap-6 overflow-hidden py-6 animate-marquee">
+            {[...terrainItems, ...terrainItems].map((item, index) => (
+              <div
+                key={`${item.id}-${index}`}
+                className="min-w-[240px] shrink-0 overflow-hidden rounded-3xl border border-[#eadad6] bg-white shadow-sm"
+              >
+                <div className="relative">
+                  <img src={item.image} alt={`Terrain ${item.id}`} className="h-44 w-full object-cover" />
+                  <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold uppercase tracking-[0.3em] text-[#8e1118]">
+                    Bien {item.id}
                   </div>
-                ))}
+                </div>
+                <div className="flex flex-col gap-3 p-4">
+                  <p className="text-sm font-semibold text-[#8e1118]">Terrain {item.id}</p>
+                  <a
+                    href={getWhatsAppUrl(
+                      `Je suis tombé sur votre site web et j'aimerais en savoir plus sur le bien ${item.id}.`
+                    )}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex w-max items-center justify-center rounded-full bg-[#8e1118] px-4 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-[#c51c22]"
+                  >
+                    En savoir plus
+                  </a>
+                </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
@@ -196,13 +201,7 @@ const ImmoplusProperties = () => {
         <div className="grid gap-6 lg:grid-cols-3">
           {ranges.map((range) => (
             <article key={range.name} className="flex h-full flex-col overflow-hidden rounded-[32px] border border-[#eadad6] bg-white shadow-sm">
-              {range.image ? (
-                <img src={range.image} alt={range.name} className="h-48 w-full object-cover" />
-              ) : (
-                <div className="flex h-48 w-full items-center justify-center bg-[#f3e8e7] text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118]">
-                  Visuel en préparation
-                </div>
-              )}
+              <img src={range.image} alt={range.name} className="h-48 w-full object-cover" />
               <div className="flex flex-1 flex-col gap-4 p-6">
                 <h3 className="text-lg font-semibold uppercase tracking-[0.3em] text-[#8e1118]">{range.name}</h3>
                 <ul className="space-y-2 text-sm leading-relaxed text-gray-700">
@@ -213,6 +212,16 @@ const ImmoplusProperties = () => {
                     </li>
                   ))}
                 </ul>
+                <a
+                  href={getWhatsAppUrl(
+                    `Je suis tombé sur votre site web et j'aimerais en savoir plus sur la ${range.name}.`
+                  )}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-auto inline-flex w-max items-center justify-center rounded-full bg-[#8e1118] px-5 py-2 text-xs font-semibold uppercase tracking-[0.3em] text-white transition hover:bg-[#c51c22]"
+                >
+                  En savoir plus
+                </a>
               </div>
             </article>
           ))}
