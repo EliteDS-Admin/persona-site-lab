@@ -39,7 +39,9 @@ const ranges = [
       "Nombre de chambres prévu : 1 à 3",
       "Matériaux : Locaux et durables",
       "Évolutivité : Construction par étapes, selon budget du propriétaire",
+      "Coût du m² à Afanayo : 30 000 à 50 000 FCFA",
       "Coût du m² à Douala : 100 000 à 300 000 FCFA",
+      "Coût du m² à Etoa : 30 000 à 50 000 FCFA",
     ],
   },
   {
@@ -53,7 +55,7 @@ const ranges = [
       "À l'étage : D'une douche commune aux deux (03) chambres",
       "Aménagement extérieur : Un Parking de 02 Voitures (disponibilité en fonction des différent site)",
       "Aménagement extérieur : Une cour avant et arrière pouvant être aménagée et servir d'air de repos.",
-      "Coût du m² à Douala : 50 000 à 120 000 FCFA",
+      "Coût du m² à Douala : 100 000 à 300 000 FCFA",
     ],
   },
   {
@@ -69,6 +71,8 @@ const ranges = [
       "À l'étage : D'une terrasse",
       "Aménagement extérieur : Un Parking de 02 Voitures",
       "Aménagement extérieur : Une large cour avant et arrière pouvant être aménagée et accueillir un barbecue ou une mini reception.",
+      "Coût du m² à Douala : 100 000 à 300 000 FCFA",
+      "Coût du m² à Kribi : 40 000 à 60 000 FCFA",
     ],
   },
   {
@@ -88,6 +92,8 @@ const ranges = [
       "Aménagement extérieur : Un Parking de 02 Voitures",
       "Aménagement extérieur : Un espace aménagé pouvant accueillir une Piscine aux dimensions standards",
       "Aménagement extérieur : Une large cour avant et arrière pouvant être aménagée et accueillir un barbecue ou une Mini réception.",
+      "Coût du m² à Douala : 100 000 à 300 000 FCFA",
+      "Coût du m² à Kribi : 40 000 à 60 000 FCFA",
     ],
   },
 ];
