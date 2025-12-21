@@ -6,6 +6,7 @@ const contacts = [
   { label: "Standard", value: "(+237) 675 92 62 63" },
   { label: "Commercial", value: "(+237) 698 120 450" },
   { label: "Direction", value: "(+237) 677 205 314" },
+  { label: "Assistance", value: "(+237) 640 82 52 96" },
 ];
 
 const ImmoplusContact = () => {

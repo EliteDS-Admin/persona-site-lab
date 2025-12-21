@@ -22,7 +22,7 @@ const ImmoplusLayout = () => {
             </span>
             <span className="flex items-center gap-1.5">
               <Phone className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
-              (+237) 675 92 62 63 / 698 120 450 / 677 205 314
+              (+237) 675 92 62 63 / 698 120 450 / 677 205 314 / 640 82 52 96
             </span>
             <span className="flex items-center gap-1.5">
               <MapPin className="h-3 w-3 sm:h-3.5 sm:w-3.5" />
