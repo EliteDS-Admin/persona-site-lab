@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { ArrowRight, PlayCircle, Sparkles } from "lucide-react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { WHATSAPP_URL } from "./constants";
 
 const statements = [
