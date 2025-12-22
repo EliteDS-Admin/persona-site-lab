@@ -20,7 +20,7 @@ const locations = [
   "Kribi",
 ];
 
-const ImmoplusAbout: React.FC = () => {
+const ImmoplusAbout = () => {
   return (
     <div className="mx-auto max-w-6xl space-y-14 px-4">
       <section className="space-y-6 rounded-[40px] bg-white p-8 shadow-sm">
@@ -30,57 +30,90 @@ const ImmoplusAbout: React.FC = () => {
         </h1>
         <div className="space-y-4 text-sm leading-relaxed text-gray-700">
           <p>
-            Immo-Plus est la combinaison de deux mots : « Immo », diminutif d'immobilier — qui désigne le terrain et
-            l'habitation — et « Plus », qui symbolise l'innovation autour du concept de maison évolutive porté par la
-            structure. Historiquement, on est passé de huttes et de cabanes à des constructions plus sophistiquées ; le
-            « Plus » illustre cette évolution du bâti, qui dépasse le simple cocon familial.
+            Immo-Plus est une composition de deux mots : Immo qui est un diminutif d'immobilier (représentant la
+            terre, le terrain, mais également la maison) et le deuxième mot PLUS, pour cette particularité sur la maison évolutive,
+            concept prôné par la structure. Quand on regarde dans le passé, on parlait de huttes, de cabanes, d’abris qui se sont
+            sophistiqués ; la particularité du PLUS nous ramène à cette évolution du bâti qui, en réalité à la base, symbolisait
+            uniquement le cocon familial. De nos jours, ce plus dans notre structure est le fait de cette innovation conceptuelle que
+            nous avons de permettre, d’une manière évolutive, aux clients finaux d’avoir accès à la propriété en passant par l’accès au
+            terrain, au foncier, l’accès à un crédit dans la mesure du possible, la collaboration et la coproduction avec l’entreprise
+            dans la construction de son abri ou de sa maison.
           </p>
-
           <p>
-            Aujourd'hui, ce « Plus » se traduit par notre approche : permettre aux clients d'accéder progressivement à la
-            propriété — depuis l'acquisition du terrain et l'accompagnement foncier, jusqu'à l'accès au crédit lorsque cela
-            est possible, et la coproduction ou la construction de la maison avec notre entreprise.
+            Le logo d’Immo-Plus reprend les deux mots Immo et Plus. Le O d’Immo est une composition de deux mains qui forment un
+            cercle chapeauté par une toiture. À l’intérieur de ce O, on a en filigrane une famille, ce qui exprime le O du
+            Nid, de l’unité, du cocon familial, de la protection de la famille. Une feuille de plante qui définit la croissance. Tout
+            ceci arboré de deux couleurs phares à savoir le rouge bordeaux (toiture en argile cuite) et l’orange doux (mur de terre
+            stabilisée).
           </p>
-
           <p>
-            Le logo d'Immo-Plus associe visuellement ces idées. Le « O » d'Immo est représenté par deux mains formant un
-            cercle, surmonté d'une toiture. À l'intérieur, une famille en filigrane symbolise le nid, l'unité et la protection
-            du foyer, tandis qu'une feuille évoque la croissance. Les couleurs phares sont le rouge bordeaux (toiture en argile
-            cuite) et l'orange doux (mur de terre stabilisé).
+            En réalité, ces deux couleurs sont la résultante d’une grande expérience de partage avec les entreprises et artisans
+            fabricants de tuiles canal en Gironde (Bordeaux, France). Ces divers artisans et entreprises sont spécialisés dans la
+            fabrication des éléments de couverture en argile cuite, d’où la couleur marron ou orange en fonction de la
+            cuisson desdits éléments.
           </p>
-
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <h3 className="mt-3 text-lg font-semibold text-[#8e1118]">Objectifs</h3>
-              <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
-                {objectives.map((o) => (
-                  <li key={o}>{o}</li>
-                ))}
-              </ul>
-            </div>
-
-            <div>
-              <h3 className="mt-3 text-lg font-semibold text-[#8e1118]">Valeurs</h3>
-              <ul className="mt-2 space-y-2">
-                {values.map((v) => (
-                  <li key={v.label} className="flex items-center gap-3">
-                    <span className={`inline-block h-3 w-3 rounded-sm ${v.color}`} />
-                    <span className="text-sm text-gray-700">{v.label}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-
-          <div>
-            <h3 className="mt-3 text-lg font-semibold text-[#8e1118]">Implantations</h3>
-            <ul className="mt-2 list-inside list-disc text-sm text-gray-700">
-              {locations.map((l) => (
-                <li key={l}>{l}</li>
-              ))}
-            </ul>
-          </div>
+          <p>
+            Le principal porteur de projet est la SCI Immo-Plus reconnue et représentée par M. TANKO Eli, son directeur général. La SCI
+            Immo-Plus est une structure en développement depuis une quinzaine d’années avec à sa tête le porteur de projet en la
+            personne de M. TANKO Eli. À ses débuts, Immo-Plus a été pensée pour la mise en œuvre des maisons évolutives et modulaires
+            dans différentes villes du Cameroun avec un concept qui adaptait le style de maison au portefeuille du propriétaire. Le
+            concept était basé sur un plan modulable et une construction évolutive, tout ceci en fonction du revenu du client final
+            avec pour objectif principal de permettre à ce dernier d’être propriétaire d’un terrain et de vivre dans un module de sa
+            facture (maison) le temps de le finaliser. C’est ce qui donne cette connotation de maison évolutive, c’est-à-dire
+            construire au fur et à mesure des revenus disponibles du propriétaire ou client final. La SCI Immo-Plus, par son étude et
+            son observation, met sur pied un accompagnement pour crédit bancaire / immobilier pour des personnes en difficulté et à
+            revenu moyen ; elle offre aussi ses expertises et services pour un accompagnement pour l’obtention des documents fonciers.
+          </p>
+          <p>
+            Le Directeur général, M. TANKO Eli, du haut de ses 30 ans d’expérience dans la conduite des chantiers de bâtiment et
+            travaux publics, est titulaire d’un baccalauréat F4 (Génie Civil) et d'un DESS (Bac+5) en gestion et innovation. Dans
+            le cadre du BTP, il est spécialisé en économie du bâtiment, ayant dans son CV plusieurs expériences de gestion et
+            d’animation de grands chantiers.
+          </p>
         </div>
+      </section>
+
+      <section className="grid gap-6 lg:grid-cols-2">
+        <article className="rounded-[32px] bg-white p-6 shadow-sm">
+          <h2 className="text-lg font-semibold uppercase tracking-[0.3em] text-[#8e1118]">Nos objectifs</h2>
+          <ul className="mt-4 space-y-2 text-sm leading-relaxed text-gray-700">
+            {objectives.map((item) => (
+              <li key={item} className="flex items-start gap-2">
+                <span className="mt-1 inline-block h-2 w-2 rounded-full bg-[#f5c24b]" />
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
+        <article className="rounded-[32px] bg-white p-6 shadow-sm">
+          <h2 className="text-lg font-semibold uppercase tracking-[0.3em] text-[#8e1118]">Nos valeurs</h2>
+          <ul className="mt-4 space-y-3 text-sm leading-relaxed text-gray-700">
+            {values.map((value) => (
+              <li key={value.label} className="flex items-center gap-3">
+                <span className={`flex h-10 w-10 items-center justify-center rounded-full text-xs font-semibold uppercase tracking-[0.2em] text-white ${value.color}`}>
+                  ●
+                </span>
+                <span>{value.label}</span>
+              </li>
+            ))}
+          </ul>
+        </article>
+      </section>
+
+      <section className="rounded-[40px] bg-white p-8 shadow-sm">
+        <h2 className="text-2xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">Chiffres clés et implantations</h2>
+        <p className="mt-4 text-sm leading-relaxed text-gray-700">
+          Chiffres clés : nombre exact de maisons disponibles.
+        </p>
+        <h3 className="mt-6 text-sm font-semibold uppercase tracking-[0.3em] text-[#8e1118]">Localisation</h3>
+        <ul className="mt-3 space-y-2 text-sm leading-relaxed text-gray-700">
+          {locations.map((location) => (
+            <li key={location} className="flex items-start gap-2">
+              <span className="mt-1 inline-block h-2 w-2 rounded-full bg-[#8e1118]" />
+              <span>{location}</span>
+            </li>
+          ))}
+        </ul>
       </section>
     </div>
   );
