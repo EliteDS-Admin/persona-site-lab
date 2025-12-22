@@ -4,27 +4,27 @@ import { WHATSAPP_URL } from "./constants";
 const services = [
   {
     icon: Users,
-    title: "Gestion patrimoine pour les particuliers",
+    title: "Gestion de patrimoine pour les particuliers",
     description:
-      "Immoplus stabilise et valorise le patrimoine immobilier de ses clients particuliers grâce à un suivi personnalisé et des solutions adaptées aux revenus de chacun.",
+      "Immo-Plus stabilise et valorise le patrimoine immobilier de ses clients particuliers grâce à un suivi personnalisé et des solutions adaptées aux revenus de chacun.",
   },
   {
     icon: ShieldCheck,
     title: "Réalisation : étude et expertise",
     description:
-      "La réalisation, étude et expertise consiste à mettre en œuvre un projet en passant par des étapes d'analyse approfondie (étude) et de validation par un spécialiste (expertise) afin de garantir sa faisabilité technique, financière et sa réussite globale. Cela implique de la conception à la planification, en s'appuyant sur des données fiables et des avis professionnels pour éclairer le projet et résoudre les problèmes potentiels.",
+      "La réalisation, l'étude et l'expertise consistent à mettre en œuvre un projet en passant par des étapes d'analyse approfondie et de validation par un spécialiste afin de garantir sa faisabilité technique, financière et sa réussite globale. Cela implique de la conception à la planification, en s'appuyant sur des données fiables et des avis professionnels pour éclairer le projet et résoudre les problèmes potentiels.",
   },
   {
     icon: FileCheck2,
-    title: "Réalisation plan de lotissement (2D, 3D)",
+    title: "Réalisation de plans de lotissement (2D, 3D)",
     description:
-      "Un plan de lotissement 2D montre la division d'un terrain en parcelles (lots) à l'aide de dessins techniques plats, spécifiant la taille et l'emplacement des lots, les rues, les espaces verts et les équipements. Un plan 3D représente ce même lotissement de manière réaliste et volumétrique, offrant une visualisation tridimensionnelle pour mieux appréhender l'aménagement de l'espace, valider les choix et présenter le projet de manière plus immersive et émotionnelle.",
+      "Un plan de lotissement 2D montre la division d'un terrain en parcelles (lots) à l'aide de dessins techniques plats, spécifiant la taille et l'emplacement des lots, les rues, les espaces verts et les équipements. Un plan 3D représente ce même lotissement de manière réaliste et volumétrique, offrant une visualisation tridimensionnelle pour mieux appréhender l'aménagement de l'espace, valider les choix et présenter le projet de manière plus immersive.",
   },
   {
     icon: Building2,
-    title: "Vente de terrain et de maison",
+    title: "Vente de terrains et de maisons",
     description:
-      "La vente d'un terrain ou d'une maison implique de décrire le bien (localisation, surface, composition, état), de réunir des documents légaux (titre de propriété, diagnostics), de consulter le plan d'urbanisme local (PLU), de borner le terrain, et de fixer un prix. Un acte de vente détaillé est ensuite établi et signé devant notaire, incluant le prix, les modalités de paiement, et les éventuelles servitudes.",
+      "La vente d'un terrain ou d'une maison implique de décrire le bien (localisation, surface, composition, état), de réunir des documents légaux (titre de propriété, diagnostics), de consulter le plan d'urbanisme local (PLU), de borner le terrain et de fixer un prix. Un acte de vente détaillé est ensuite établi et signé devant notaire, incluant le prix, les modalités de paiement et les éventuelles servitudes.",
   },
   {
     icon: Banknote,
@@ -34,7 +34,7 @@ const services = [
   },
   {
     icon: ScrollText,
-    title: "Accompagnement pour obtention des documents fonciers",
+    title: "Accompagnement pour l'obtention des documents fonciers",
     description:
       "L'accompagnement pour l'obtention des documents fonciers inclut l'assistance à la constitution du dossier de demande de titre foncier, la préparation des pièces justificatives, le dépôt des demandes auprès des services administratifs compétents (Services des Domaines, Cadastre, etc.), le suivi des étapes de la procédure comme le bornage et les expertises terrain, et l'obtention finale du titre foncier auprès des autorités (MINDCAF).",
   },
@@ -44,12 +44,12 @@ const ImmoplusServices = () => {
   return (
     <div className="mx-auto max-w-6xl space-y-14 px-4">
       <section className="rounded-[40px] bg-white p-8 shadow-sm">
-        <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118]">Nos services</p>
-        <h1 className="mt-3 text-3xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">
+        <p className="text-xs font-semibold uppercase tracking-widest text-[#8e1118]">Nos services</p>
+        <h1 className="mt-3 text-balance text-2xl font-extrabold uppercase tracking-widest text-[#8e1118] sm:text-3xl lg:tracking-[0.25em]">
           Un accompagnement complet à chaque étape
         </h1>
         <p className="mt-4 text-sm leading-relaxed text-gray-700">
-          IMMO-PLUS mobilise ses équipes juridiques, techniques et commerciales pour sécuriser vos acquisitions, optimiser vos financements et garantir la livraison des documents fonciers.
+          Immo-Plus mobilise ses équipes juridiques, techniques et commerciales pour sécuriser vos acquisitions, optimiser vos financements et garantir la livraison des documents fonciers.
         </p>
       </section>
 
@@ -57,16 +57,21 @@ const ImmoplusServices = () => {
         {services.map((service) => (
           <article key={service.title} className="flex h-full flex-col gap-4 rounded-3xl bg-white p-6 shadow-sm transition hover:-translate-y-1 hover:shadow-lg">
             <service.icon className="h-10 w-10 text-[#8e1118]" />
-            <h2 className="text-lg font-semibold text-[#8e1118]">{service.title}</h2>
+            {/* Correction : break-words, hyphens-auto, et taille réduite sur mobile pour éviter le débordement */}
+            <h2 className="hyphens-auto break-words text-balance text-base font-semibold text-[#8e1118] sm:text-lg">
+              {service.title}
+            </h2>
             <p className="text-sm leading-relaxed text-gray-700">{service.description}</p>
           </article>
         ))}
       </section>
 
       <section className="rounded-[32px] bg-[#8e1118] p-8 text-white">
-        <h2 className="text-2xl font-extrabold uppercase tracking-[0.25em]">Votre projet mérite un suivi personnalisé</h2>
+        <h2 className="text-balance text-xl font-extrabold uppercase tracking-widest sm:text-2xl lg:tracking-[0.25em]">
+          Votre projet mérite un suivi personnalisé
+        </h2>
         <p className="mt-3 text-sm leading-relaxed text-white/85">
-          De la sélection du site à la remise des clés, un conseiller IMMO-PLUS reste votre interlocuteur privilégié pour orchestrer les rencontres avec les banques, les notaires et les administrations.
+          De la sélection du site à la remise des clés, un conseiller Immo-Plus reste votre interlocuteur privilégié pour orchestrer les rencontres avec les banques, les notaires et les administrations.
         </p>
         <a
           href={WHATSAPP_URL}
