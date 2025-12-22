@@ -1,4 +1,3 @@
-import React from "react";
 import { Facebook, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import WhatsappIcon from "@/components/icons/WhatsappIcon";
@@ -11,7 +10,7 @@ const navLinks = [
   { to: "/a-propos", label: "À propos" },
 ];
 
-const ImmoplusLayout: React.FC = () => {
+const ImmoplusLayout = () => {
   return (
     <div className="min-h-screen bg-[#f8f5f0] font-sans text-gray-900">
       <div className="bg-[#8e1118] text-[0.68rem] text-white sm:text-xs">
@@ -62,33 +61,107 @@ const ImmoplusLayout: React.FC = () => {
         </div>
       </div>
 
-      <header className="mx-auto max-w-6xl px-4 py-6">
-        <nav className="flex items-center justify-between">
-          <Link to="/" className="text-xl font-bold text-[#8e1118]">
-            Immo-Plus
+      <header className="sticky top-0 z-40 border-b border-[#eadad6] bg-white/95 backdrop-blur">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
+          <Link to="/" className="flex items-center gap-3">
+            <img
+              src="https://res.cloudinary.com/diuvvyatm/image/upload/v1760258045/logo-immoplus-color_oz24wx.svg"
+              alt="Logo Immo-Plus"
+              className="h-12 w-auto"
+            />
           </Link>
-          <div className="flex items-center gap-4">
+          <nav className="hidden items-center gap-6 text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118] md:flex">
             {navLinks.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
                 className={({ isActive }) =>
-                  `text-sm font-medium ${isActive ? 'text-[#8e1118]' : 'text-gray-700 hover:text-[#8e1118]'}`
+                  `transition hover:text-[#c51c22] ${isActive ? "text-[#c51c22]" : "text-[#8e1118]"}`
                 }
               >
                 {link.label}
               </NavLink>
             ))}
-          </div>
-        </nav>
+          </nav>
+          <a
+            href={WHATSAPP_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="hidden items-center gap-2 rounded-full bg-[#8e1118] px-5 py-2 text-xs font-semibold uppercase tracking-[0.35em] text-white transition hover:bg-[#c51c22] md:flex"
+          >
+            Contact
+          </a>
+        </div>
+        <div className="mx-auto block max-w-6xl px-4 pb-4 md:hidden">
+          <nav className="flex flex-wrap items-center gap-3 text-[0.65rem] font-semibold uppercase tracking-[0.35em] text-[#8e1118]">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                className={({ isActive }) =>
+                  `rounded-full px-4 py-2 transition ${isActive ? "bg-[#8e1118] text-white" : "bg-[#f3e8e7] text-[#8e1118]"}`
+                }
+              >
+                {link.label}
+              </NavLink>
+            ))}
+          </nav>
+        </div>
       </header>
 
-      <main>
+      <main className="pb-16 pt-10">
         <Outlet />
       </main>
 
-      <footer className="mt-12 border-t bg-white py-8">
-        <div className="mx-auto max-w-6xl px-4 text-sm text-gray-600">© {new Date().getFullYear()} Immo-Plus</div>
+      <footer className="bg-[#8e1118] py-8 text-white">
+        <div className="mx-auto flex max-w-6xl flex-col gap-6 px-4 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-4">
+            <img
+              src="https://res.cloudinary.com/diuvvyatm/image/upload/v1760258045/logo-immoplus-white_vaiawc.svg"
+              alt="Logo Immo-Plus blanc"
+              className="h-10 w-auto"
+            />
+            <p className="text-xs uppercase tracking-[0.35em]">
+              © {new Date().getFullYear()} Immo-Plus — Le boulanger de l'immobilier
+            </p>
+          </div>
+          <div className="flex items-center gap-3">
+            <a
+              href="mailto:immoplus@gmail.com"
+              className="text-sm font-semibold uppercase tracking-[0.3em] text-white transition hover:text-[#f5c24b]"
+            >
+              Mail
+            </a>
+            <span className="hidden h-4 w-px bg-white/40 sm:block" />
+            <a
+              href={WHATSAPP_URL}
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm font-semibold uppercase tracking-[0.3em] text-white transition hover:text-[#f5c24b]"
+            >
+              WhatsApp
+            </a>
+            <span className="hidden h-4 w-px bg-white/40 sm:block" />
+            <a
+              href="tel:+237675926263"
+              className="text-sm font-semibold uppercase tracking-[0.3em] text-white transition hover:text-[#f5c24b]"
+            >
+              Contact
+            </a>
+          </div>
+          <p className="text-xs text-white/80">
+            Pensé et réalisé par{" "}
+            <a
+              href="https://micheltegofack.com"
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold text-white transition hover:text-[#f5c24b]"
+            >
+              TEGOFACK CORP
+            </a>
+            .
+          </p>
+        </div>
       </footer>
     </div>
   );
