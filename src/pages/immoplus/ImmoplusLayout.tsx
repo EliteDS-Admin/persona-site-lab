@@ -1,3 +1,4 @@
+import React from "react";
 import { Facebook, Linkedin, Mail, MapPin, Phone } from "lucide-react";
 import { Link, NavLink, Outlet } from "react-router-dom";
 import WhatsappIcon from "@/components/icons/WhatsappIcon";
@@ -10,7 +11,7 @@ const navLinks = [
   { to: "/a-propos", label: "À propos" },
 ];
 
-const ImmoplusLayout = () => {
+const ImmoplusLayout: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#f8f5f0] font-sans text-gray-900">
       <div className="bg-[#8e1118] text-[0.68rem] text-white sm:text-xs">
