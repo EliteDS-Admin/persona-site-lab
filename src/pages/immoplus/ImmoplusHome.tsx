@@ -66,7 +66,8 @@ const ImmoplusHome = () => {
                 <span>Immo-Plus</span>
                 <span className="text-white/70">Depuis 2010</span>
               </div>
-              <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl">
+              {/* CORRECTION: text-3xl sur mobile, text-balance pour l'équilibre */}
+              <h1 className="text-balance text-3xl font-extrabold leading-tight tracking-tight sm:text-4xl lg:text-5xl">
                 Immo-Plus réalise vos projets immobiliers à Douala, Yaoundé et Kribi
               </h1>
               <p className="text-base text-white/90">
@@ -122,7 +123,10 @@ const ImmoplusHome = () => {
       <section className="mx-auto max-w-6xl px-4">
         <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr] lg:items-center">
           <div className="space-y-6">
-            <h2 className="text-3xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">Pourquoi Immo-Plus ?</h2>
+            {/* CORRECTION: text-2xl mobile, text-3xl desktop, tracking-widest (moins large que 0.25em) */}
+            <h2 className="text-balance text-2xl font-extrabold uppercase tracking-widest text-[#8e1118] sm:text-3xl lg:tracking-[0.25em]">
+              Pourquoi Immo-Plus ?
+            </h2>
             <p className="text-sm leading-relaxed text-gray-700">
               Implantée dans les villes de Douala, Yaoundé et Kribi, Immo-Plus met à profit la connaissance du terrain pour
               sécuriser chaque acquisition. Notre priorité : garantir à nos clients des investissements transparents, viables et
@@ -142,7 +146,7 @@ const ImmoplusHome = () => {
                 <div className={`flex h-10 w-10 items-center justify-center rounded-full ${highlight.color} text-white`}>
                   <Sparkles className="h-5 w-5" />
                 </div>
-                <h3 className="mt-3 text-lg font-semibold text-[#8e1118]">{highlight.title}</h3>
+                <h3 className="mt-3 text-balance text-lg font-semibold text-[#8e1118]">{highlight.title}</h3>
                 <p className="mt-2 text-sm leading-relaxed text-gray-700">{highlight.description}</p>
               </article>
             ))}
@@ -153,7 +157,10 @@ const ImmoplusHome = () => {
       <section className="bg-[#f5c24b] py-16">
         <div className="mx-auto flex max-w-6xl flex-col gap-10 px-4 lg:flex-row lg:items-center">
           <div className="flex-1 space-y-4 text-[#8e1118]">
-            <h2 className="text-3xl font-extrabold uppercase tracking-[0.25em]">Nos engagements prioritaires</h2>
+            {/* CORRECTION: text-balance et ajustement taille */}
+            <h2 className="text-balance text-2xl font-extrabold uppercase tracking-widest sm:text-3xl lg:tracking-[0.25em]">
+              Nos engagements prioritaires
+            </h2>
             <p className="text-sm leading-relaxed">
               Transparence, proximité et respect des délais guident chacune de nos opérations. Chaque projet est suivi par une
               équipe pluridisciplinaire qui veille au respect des normes administratives et techniques.
@@ -173,7 +180,8 @@ const ImmoplusHome = () => {
       <section className="mx-auto max-w-6xl rounded-[40px] bg-white px-6 py-14 shadow-sm lg:px-12">
         <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
           <div className="space-y-4 lg:max-w-2xl">
-            <h2 className="text-3xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">
+            {/* CORRECTION: text-balance */}
+            <h2 className="text-balance text-2xl font-extrabold uppercase tracking-widest text-[#8e1118] sm:text-3xl lg:tracking-[0.25em]">
               Prêts à concrétiser votre projet ?
             </h2>
             <p className="text-sm leading-relaxed text-gray-700">
