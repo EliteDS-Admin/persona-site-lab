@@ -25,7 +25,8 @@ const ImmoplusAbout = () => {
     <div className="mx-auto max-w-6xl space-y-14 px-4">
       <section className="space-y-6 rounded-[40px] bg-white p-8 shadow-sm">
         <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118]">À propos</p>
-        <h1 className="text-3xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">
+        {/* CORRECTION: text-balance, taille responsive, tracking réduit sur mobile */}
+        <h1 className="text-balance text-2xl font-extrabold uppercase tracking-widest text-[#8e1118] sm:text-3xl lg:tracking-[0.25em]">
           Présentation de l'entreprise
         </h1>
         <div className="space-y-4 text-sm leading-relaxed text-gray-700">
@@ -75,7 +76,9 @@ const ImmoplusAbout = () => {
 
       <section className="grid gap-6 lg:grid-cols-2">
         <article className="rounded-[32px] bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold uppercase tracking-[0.3em] text-[#8e1118]">Nos objectifs</h2>
+          <h2 className="text-balance text-lg font-semibold uppercase tracking-widest text-[#8e1118] lg:tracking-[0.3em]">
+            Nos objectifs
+          </h2>
           <ul className="mt-4 space-y-2 text-sm leading-relaxed text-gray-700">
             {objectives.map((item) => (
               <li key={item} className="flex items-start gap-2">
@@ -86,7 +89,9 @@ const ImmoplusAbout = () => {
           </ul>
         </article>
         <article className="rounded-[32px] bg-white p-6 shadow-sm">
-          <h2 className="text-lg font-semibold uppercase tracking-[0.3em] text-[#8e1118]">Nos valeurs</h2>
+          <h2 className="text-balance text-lg font-semibold uppercase tracking-widest text-[#8e1118] lg:tracking-[0.3em]">
+            Nos valeurs
+          </h2>
           <ul className="mt-4 space-y-3 text-sm leading-relaxed text-gray-700">
             {values.map((value) => (
               <li key={value.label} className="flex items-center gap-3">
@@ -101,11 +106,15 @@ const ImmoplusAbout = () => {
       </section>
 
       <section className="rounded-[40px] bg-white p-8 shadow-sm">
-        <h2 className="text-2xl font-extrabold uppercase tracking-[0.25em] text-[#8e1118]">Chiffres clés et implantations</h2>
+        <h2 className="text-balance text-xl font-extrabold uppercase tracking-widest text-[#8e1118] sm:text-2xl lg:tracking-[0.25em]">
+          Chiffres clés et implantations
+        </h2>
         <p className="mt-4 text-sm leading-relaxed text-gray-700">
           Chiffres clés : nombre exact de maisons disponibles.
         </p>
-        <h3 className="mt-6 text-sm font-semibold uppercase tracking-[0.3em] text-[#8e1118]">Localisation</h3>
+        <h3 className="mt-6 text-sm font-semibold uppercase tracking-widest text-[#8e1118] lg:tracking-[0.3em]">
+          Localisation
+        </h3>
         <ul className="mt-3 space-y-2 text-sm leading-relaxed text-gray-700">
           {locations.map((location) => (
             <li key={location} className="flex items-start gap-2">
