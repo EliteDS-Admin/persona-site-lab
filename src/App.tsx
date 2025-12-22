@@ -13,6 +13,7 @@ import Index from "./pages/Index";
 import Preview from "./pages/Preview";
 import GeneratedSite from "./pages/GeneratedSite";
 import NotFound from "./pages/NotFound";
+import ScrollToTop from "@/components/ScrollToTop";
 
 const queryClient = new QueryClient();
 
@@ -22,6 +23,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route path="/" element={<ImmoplusLayout />}>
             <Route index element={<ImmoplusHome />} />
