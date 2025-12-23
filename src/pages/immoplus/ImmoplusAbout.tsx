@@ -15,7 +15,7 @@ const values = [
 ];
 
 const locations = [
-  "Douala (Face Idimed Bonapriso, BP 2800, Contact 675 92 62 63)",
+  "Douala (Face Idimed Bonapriso, BP 2800, Contact 675 92 62 63 / 698 12 04 50)",
   "Yaoundé (Prestige Hôtel)",
   "Kribi",
 ];
@@ -25,7 +25,6 @@ const ImmoplusAbout = () => {
     <div className="mx-auto max-w-6xl space-y-14 px-4">
       <section className="space-y-6 rounded-[40px] bg-white p-8 shadow-sm">
         <p className="text-xs font-semibold uppercase tracking-[0.35em] text-[#8e1118]">À propos</p>
-        {/* CORRECTION: text-balance, taille responsive, tracking réduit sur mobile */}
         <h1 className="text-balance text-2xl font-extrabold uppercase tracking-widest text-[#8e1118] sm:text-3xl lg:tracking-[0.25em]">
           Présentation de l'entreprise
         </h1>
@@ -110,7 +109,7 @@ const ImmoplusAbout = () => {
           Chiffres clés et implantations
         </h2>
         <p className="mt-4 text-sm leading-relaxed text-gray-700">
-          Chiffres clés : nombre exact de maisons disponibles.
+          Chiffres clés : 15 maisons disponibles, 5 dans chaque ville.
         </p>
         <h3 className="mt-6 text-sm font-semibold uppercase tracking-widest text-[#8e1118] lg:tracking-[0.3em]">
           Localisation
