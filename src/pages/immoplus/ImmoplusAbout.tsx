@@ -17,7 +17,7 @@ const values = [
 const locations = [
   "Douala (Face Idimed Bonapriso, BP 2800, Contact 675 92 62 63 / 698 12 04 50)",
   "Yaoundé (Prestige Hôtel)",
-  "Kribi",
+  "Kribi (Contact 675 92 62 63 / 698 12 04 50)",
 ];
 
 const ImmoplusAbout = () => {
